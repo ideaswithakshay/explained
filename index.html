@@ -60,7 +60,6 @@
   /* waitlist form */
   form.waitlist { display:flex; flex-direction:column; gap:14px; max-width:500px; }
   .q { font:600 15px var(--display); color:var(--ink); }
-                       border:1px solid var(--line); box-shadow:none; font:600 13.5px/1.2 var(--display); transition:transform .06s; }
   .row { display:flex; gap:10px; }
   input[type=email] { flex:1; min-width:0; height:52px; padding:0 18px; border-radius:14px; border:1px solid var(--line); background:var(--surface);
                       color:var(--ink); font:500 16px var(--text); outline:none; }
@@ -378,6 +377,14 @@
   .lvl .lab { font:600 12px var(--text); letter-spacing:.08em; text-transform:uppercase; color:var(--g); margin-bottom:8px; }
   .lvl p { font-size:18px; line-height:1.45; }
   @media (max-width:900px) { .lvls { grid-template-columns:1fr; } }
+  .paste { display:flex; flex-direction:column; gap:10px; max-width:500px; margin-bottom:26px; }
+  .paste, form.waitlist { width:100%; }
+  .paste .row, form.waitlist .row { width:100%; }
+  .paste .row > input, form.waitlist .row > input { flex:1 1 auto; }
+  .paste input[type=url] { flex:1; min-width:0; height:52px; padding:0 18px; border-radius:14px; border:1px solid var(--line); background:var(--surface); color:var(--ink); font:400 16px var(--text); outline:none; }
+  .paste input[type=url]:focus { border-color:var(--g); }
+  @media (max-width:520px) { .paste input[type=url] { flex:none; width:100%; } }
+  .pasted { max-width:500px; margin:-12px 0 20px; padding:14px 16px; border-radius:16px; background:var(--g-soft); color:var(--ink); font-size:15px; }
 </style>
 </head>
 <body>
@@ -389,13 +396,19 @@
     <div>
       <span class="pill">Anything, explained step by step</span>
       <h1>Finally <span class="hl">understand</span> anything.</h1>
-      <p class="lead">Pick the topics you care about: today’s news, money, science, philosophy, history and more. A 10-question quiz finds your level, from total beginner to expert. Then every idea is built up step by step, at your level, with real numbers and a source for every fact.</p>
+      <p class="lead">Paste a link to anything you want to understand, or pick a topic: today’s news, money, science, philosophy, history and more. A quick quiz finds your level. Then every idea is built up step by step, at your level, and connected to everything else you know.</p>
+      <form class="paste" id="pasteForm">
+        <label for="pasteUrl" class="q">Paste a link to anything you want to understand</label>
+        <div class="row"><input type="url" id="pasteUrl" name="url" placeholder="An article, a video, a paper…" required><button class="btn" type="submit">Explain it</button></div>
+        <p class="fine">We break it into steps at your level and connect every idea to the rest of your map.</p>
+      </form>
+      <div class="pasted" id="pasted" hidden><b>Got it.</b> Explained is in early access. Leave your email below and we’ll explain this link for you first.</div>
       <form class="waitlist" data-where="hero">
         <div class="row">
           <input type="email" name="email" placeholder="Your email" required autocomplete="email">
           <button class="btn" type="submit">Get early access</button>
         </div>
-        <div class="topics" role="group" aria-label="Topics you want to understand"><span>I want to understand:</span><label><input type="checkbox" name="topic" value="news" checked><span>The news</span></label><label><input type="checkbox" name="topic" value="money"><span>Money</span></label><label><input type="checkbox" name="topic" value="science"><span>Science</span></label><label><input type="checkbox" name="topic" value="philosophy"><span>Philosophy</span></label><label><input type="checkbox" name="topic" value="history"><span>History</span></label><label><input type="checkbox" name="topic" value="health"><span>Health</span></label><label><input type="checkbox" name="topic" value="tech"><span>Tech</span></label><label><input type="checkbox" name="topic" value="mind"><span>The mind</span></label><label><input type="checkbox" name="topic" value="society"><span>Society</span></label><label><input type="checkbox" name="topic" value="arts"><span>The arts</span></label></div>
+        <div class="topics" role="group" aria-label="Topics you want to understand"><span>Or pick topics you want to understand:</span><label><input type="checkbox" name="topic" value="news" checked><span>The news</span></label><label><input type="checkbox" name="topic" value="money"><span>Money</span></label><label><input type="checkbox" name="topic" value="science"><span>Science</span></label><label><input type="checkbox" name="topic" value="philosophy"><span>Philosophy</span></label><label><input type="checkbox" name="topic" value="history"><span>History</span></label><label><input type="checkbox" name="topic" value="health"><span>Health</span></label><label><input type="checkbox" name="topic" value="tech"><span>Tech</span></label><label><input type="checkbox" name="topic" value="mind"><span>The mind</span></label><label><input type="checkbox" name="topic" value="society"><span>Society</span></label><label><input type="checkbox" name="topic" value="arts"><span>The arts</span></label></div>
         <div class="phones"><span>My phone:</span>
           <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
           <label><input type="radio" name="phone" value="android"><span>Android</span></label>
@@ -487,6 +500,7 @@
   <h2>Good questions.</h2>
   <div class="faq">
     <details><summary>What can I learn?</summary><p>The news, money, science, philosophy, history, health, tech, the mind, society and the arts. Each subject is a puzzle of ideas, and new topics arrive without an app update. The news comes as daily stories, each built step by step in about 100 swipe cards. You get 10 free slides every day.</p></details>
+    <details><summary>Can I learn from my own links?</summary><p>Yes. Paste any article, video or paper. Explained breaks it into short steps at your level, explains every term, and connects each idea to the rest of your map.</p></details>
     <details><summary>How does it know my level?</summary><p>When you pick a topic, a 10-question quiz places you from 1 (total beginner) to 10 (expert). Every slide is written in 10 versions, so you start where you are and move up as you get things right. You can change your level anytime.</p></details>
     <details><summary>How deep does it go?</summary><p>As deep as you want. Every idea has a step under it that explains it. Swipe up to open the next step. Swipe back to return to the story.</p></details>
     <details><summary>Where do the numbers come from?</summary><p>Official data, court rulings, scientific papers, company filings and news reports. Every fact card shows its source. Green tags mean a filing or official number. Gold tags mean a news report.</p></details>
@@ -534,12 +548,24 @@
     data = data || {};
     const F = C.FORM, body = new URLSearchParams();
     body.set(F.event, event); body.set(F.email, data.email || ""); body.set(F.phone, data.phone || "");
-    body.set(F.details, JSON.stringify({ app: C.APP, device, where: data.where, topics: data.topics, utm, vid, ref: document.referrer }));
+    body.set(F.details, JSON.stringify({ app: C.APP, device, where: data.where, topics: data.topics, link: data.link, utm, vid, ref: document.referrer }));
     fetch(F.url, { method: "POST", mode: "no-cors", body, keepalive: true }).catch(() => {});
   }
   send("visit");
 
   window.fsLog = send;   // the hero demo logs which headlines people open
+
+  // ---- paste a link: we log what people want explained, then invite them to the waitlist ----
+  let lastLink = "";
+  const pf = $("pasteForm");
+  if (pf) pf.addEventListener("submit", e => {
+    e.preventDefault();
+    lastLink = String(new FormData(pf).get("url") || "").slice(0, 500);
+    send("paste", { where: "hero", link: lastLink });
+    $("pasted").hidden = false;
+    const em = document.querySelector('form.waitlist[data-where="hero"] input[type=email]');
+    if (em) em.focus();
+  });
 
   // ---- signup ----
   document.querySelectorAll("form.waitlist").forEach(form => {
@@ -547,7 +573,7 @@
     form.addEventListener("submit", e => {
       e.preventDefault();
       const fd = new FormData(form);
-      send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where, topics: fd.getAll("topic").join(",") });
+      send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where, topics: fd.getAll("topic").join(","), link: lastLink });
       document.querySelectorAll("form.waitlist").forEach(f => f.style.display = "none");
       document.querySelectorAll(".thanks").forEach(t => {
         t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Explained is ready.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
