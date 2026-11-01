@@ -391,6 +391,18 @@
   .nl-paste { display:flex; gap:6px; flex:none; }
   .nl-paste input { flex:1; min-width:0; height:36px; border-radius:10px; border:1px solid #D2D2D7; padding:0 10px; font:400 13px var(--text); background:#fff; }
   .nl-paste button { height:36px; border:0; border-radius:999px; padding:0 14px; background:var(--g); color:#fff; font:600 13px var(--text); cursor:pointer; }
+  .home .nl-paste.big { flex-direction:column; gap:7px; padding:12px; background:#fff; border:.5px solid #E3E3E8; border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.06); }
+  .home .nl-paste.big label { font:700 17px/1.2 var(--display); letter-spacing:-.02em; color:#1D1D1F; }
+  .home .nl-paste.big input { height:40px; flex:none; box-sizing:border-box; padding:0 10px; }
+  .home .nl-paste.big button { height:38px; width:100%; }
+  .hm-sub { font:600 10.5px var(--text); letter-spacing:.08em; text-transform:uppercase; color:#86868B; margin-top:4px; }
+  .doms { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .dom { display:flex; flex-direction:column; align-items:flex-start; gap:1px; text-align:left; padding:7px 10px; border-radius:13px; background:#fff; border:.5px solid #E3E3E8; cursor:pointer; font:inherit; color:#1D1D1F; }
+  .dom i { width:8px; height:8px; border-radius:50%; margin-bottom:3px; }
+  .dom b { font:600 13.5px var(--text); }
+  .dom span { font:400 9.5px var(--text); color:#86868B; }
+  .dom.soon { cursor:default; background:#FAFAFC; }
+  .dom.soon b { color:#86868B; }
 </style>
 </head>
 <body>
@@ -618,17 +630,32 @@
   const left = () => Math.max(0, FREE - seen.size);
   const log = where => { if (!logged.has(where)) { logged.add(where); window.fsLog && window.fsLog('lesson', { where }); } };
 
+  // Home: paste a link first. Below it, every subject. The ones we haven't built yet say so.
+  const MONEY = ['finance', 'business', 'economy', 'you'];
+  const DOMS = [['news', 'News', '#7F7BF0', 'all'], ['money', 'Money', '#2FB872', 'money'], ['science', 'Science', '#8BC34A'], ['philosophy', 'Philosophy', '#C27BE0'],
+    ['history', 'History', '#C98A2B'], ['health', 'Health', '#F2727F'], ['tech', 'Tech', '#5B8DEF'], ['mind', 'The mind', '#35B3C4'], ['society', 'Society', '#98A2B3'], ['arts', 'The arts', '#E86FB8']];
+  let view = 'home';
+  function renderHome() {
+    story = null;
+    const count = f => STORIES.filter(s => f === 'all' || MONEY.includes(s.branch)).length;
+    deck.innerHTML = `<div class="nlist home"><form class="nl-paste big" id="nlPaste"><label for="nlUrl">Paste a link to anything</label>
+        <input id="nlUrl" type="url" name="url" placeholder="An article, a post, a paper…" required><button type="submit">Explain it</button></form>
+      <div class="hm-sub">Or explore a subject</div>
+      <div class="doms">${DOMS.map(([id, name, c, f]) => `<button type="button" class="dom${f ? '' : ' soon'}" data-f="${f || ''}" ${f ? '' : 'disabled'}><i style="background:${c}"></i><b>${name}</b><span>${f ? count(f) + ' stories' : 'Coming soon'}</span></button>`).join('')}</div></div>`;
+    bar.style.width = '0%'; cnt.textContent = 'Home'; back.disabled = true;
+    hint.textContent = `Paste a link, or pick a subject · ⚡ ${left()} free`;
+    deck.querySelector('#nlPaste').addEventListener('submit', e => { e.preventDefault(); explainLink(new FormData(e.target).get('url')); });
+    deck.querySelectorAll('.dom[data-f]:not([disabled])').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; view = 'list'; renderList(); }));
+  }
   function renderList() {
     story = null;
-    const shown = STORIES.filter(s => filter === 'all' || s.branch === filter);
+    const shown = STORIES.filter(s => filter === 'all' || (filter === 'money' ? MONEY.includes(s.branch) : s.branch === filter));
     const chips = ['all', ...Object.keys(BR).filter(b => STORIES.some(s => s.branch === b))];
-    deck.innerHTML = `<div class="nlist"><form class="nl-paste" id="nlPaste"><input type="url" name="url" placeholder="Paste a link to explain" required aria-label="Paste a link to explain"><button type="submit">Explain</button></form>
-      <div class="nl-top"><b>Today’s news</b><span>${STORIES.length} stories</span></div>
+    deck.innerHTML = `<div class="nlist"><div class="nl-top"><b>${filter === 'money' ? 'Money' : 'Today’s news'}</b><span>${shown.length} stories</span></div>
       <div class="nl-chips">${chips.map(c => `<button type="button" class="nl-chip${c === filter ? ' on' : ''}" data-f="${c}">${c === 'all' ? 'All' : BR[c][0]}</button>`).join('')}</div>
       ${shown.map((s, i) => `<button class="nl${!touched && i === 0 ? ' nudge' : ''}" type="button" data-s="${STORIES.indexOf(s)}"><span class="nl-tag"><i style="background:${BR[s.branch][1]}"></i>${BR[s.branch][0]} · ${day(s.date)} · ${s.layers.length} steps deep</span><span class="nl-h">${head(s)}</span></button>`).join('')}</div>`;
-    bar.style.width = '0%'; cnt.textContent = 'Today'; back.disabled = true;
+    bar.style.width = '0%'; cnt.textContent = 'Today'; back.disabled = false;
     hint.textContent = `Pick any headline · ⚡ ${left()} free slides today`;
-    deck.querySelector('#nlPaste').addEventListener('submit', e => { e.preventDefault(); explainLink(new FormData(e.target).get('url')); });
     deck.querySelectorAll('.nl-chip').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderList(); }));
     deck.querySelectorAll('.nl').forEach(b => b.addEventListener('click', () => { touched = true; story = STORIES[+b.dataset.s]; story.slides = story.slides || slidesOf(story); depth = 0; log(`news:${story.id}:open`); render(); }));
   }
@@ -693,7 +720,7 @@
       <button class="deeper" type="button" data-list>Back to the headlines</button></div>`;
   }
   function render() {
-    if (!story) return renderList();
+    if (!story) return view === 'list' ? renderList() : renderHome();
     const n = story.slides.length, next = story.slides[depth + 1];
     if (!spend(story.id + ':' + depth)) {
       deck.innerHTML = `<div class="scard wall" id="topcard">${wallHTML()}</div>`;
@@ -728,7 +755,7 @@
     setTimeout(() => { then(); render(); }, 220);
   }
   const deeper = () => { if (story && depth < story.slides.length - 1) fly('up', () => depth++); };
-  const upLevel = () => { if (!story) return; if (depth === 0) { story = null; render(); } else fly('down', () => depth--); };
+  const upLevel = () => { if (!story) { if (view === 'list') { view = 'home'; render(); } return; } if (depth === 0) { story = null; render(); } else fly('down', () => depth--); };
   function bind() {
     const el = document.getElementById('topcard');
     let sx = 0, sy = 0, dx = 0, dy = 0, down = false;
