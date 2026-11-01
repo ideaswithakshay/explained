@@ -674,7 +674,7 @@
     try {
       const r = await fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url, level: 3 }) });
       const d = await r.json();
-      if (!r.ok) return note('Not right now', (d.message || 'That didn’t work.') + '');
+      if (!r.ok) return note(d.error === 'blocked' ? 'We don’t do that' : 'Not right now', d.message || 'That didn’t work.');
       story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
         layers: d.steps.map((s, i) => ({ title: s.title, term: s.term || undefined, text: s.text, example: s.example || undefined, deeper: i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined })) };
       story.slides = slidesOf(story); depth = 0; render();
