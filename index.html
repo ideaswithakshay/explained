@@ -681,8 +681,8 @@
     hint.textContent = 'Working on it';
     try {
       const r = await fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url, level: 3 }) });
-      const d = await r.json();
-      if (!r.ok) return note(d.error === 'blocked' ? 'We don’t do that' : 'Not right now', d.message || 'That didn’t work.');
+      const d = JSON.parse((await r.text()).trim());   // the server sends spaces while it works, then the answer
+      if (!r.ok || d.error) return note(d.error === 'blocked' ? 'We don’t do that' : 'Not right now', d.message || 'That didn’t work.');
       story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
         // Pack each step onto slides by size: full enough to read well, never crowded. Numbers get their own slide.
         layers: d.steps.flatMap((s, i) => {
