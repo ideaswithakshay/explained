@@ -630,13 +630,13 @@
     hint.textContent = `Pick any headline · ⚡ ${left()} free slides today`;
     deck.querySelector('#nlPaste').addEventListener('submit', e => { e.preventDefault(); explainLink(new FormData(e.target).get('url')); });
     deck.querySelectorAll('.nl-chip').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderList(); }));
-    deck.querySelectorAll('.nl').forEach(b => b.addEventListener('click', () => { touched = true; story = STORIES[+b.dataset.s]; depth = 0; log(`news:${story.id}:open`); render(); }));
+    deck.querySelectorAll('.nl').forEach(b => b.addEventListener('click', () => { touched = true; story = STORIES[+b.dataset.s]; story.slides = story.slides || slidesOf(story); depth = 0; log(`news:${story.id}:open`); render(); }));
   }
   // Paste a link: ask the explain server, then show its steps like any other story.
   const API = 'https://explained-api.newsible.workers.dev/explain';
   function note(title, msg, wait) {
     deck.innerHTML = `<div class="scard" id="topcard"><div class="eb">${wait ? 'Reading the page' : 'Explain a link'}</div><div class="mid"><h4>${esc(title)}</h4><p class="soft">${esc(msg)}</p>
-      ${wait ? '' : '<div class="endbtns"><button class="deeper" type="button" data-list>Back to the headlines</button><a href="#join">Get early access</a></div>'}</div></div>`;
+      ${wait ? '' : '<button class="deeper" type="button" data-list>Back to the headlines</button>'}</div></div>`;
     deck.querySelector('[data-list]')?.addEventListener('click', () => { story = null; render(); });
     bar.style.width = wait ? '30%' : '0%'; back.disabled = false;
   }
@@ -647,11 +647,11 @@
     try {
       const r = await fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url, level: 3 }) });
       const d = await r.json();
-      if (!r.ok) return note('Not right now', (d.message || 'That didn’t work.') + ' Join the waitlist and we’ll explain it for you first.');
+      if (!r.ok) return note('Not right now', (d.message || 'That didn’t work.') + '');
       story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
         layers: d.steps.map((s, i) => ({ title: s.title, term: s.term || undefined, text: s.text, example: s.example || undefined, deeper: i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined })) };
-      depth = 0; render();
-    } catch (e) { note('Not right now', 'We couldn’t reach the explainer. Join the waitlist and we’ll explain it for you first.'); }
+      story.slides = slidesOf(story); depth = 0; render();
+    } catch (e) { note('Not right now', 'We couldn’t reach the explainer.'); }
   }
   function layerHTML(L) {
     const max = L.bars ? Math.max(...L.bars.map(b => b.value)) : 1;
@@ -663,15 +663,28 @@
       (L.bars ? `<div class="bars">${L.bars.map(b => `<div><div class="bl">${esc(b.label)}</div><div class="bt"><div class="bf${b.hl ? ' hl' : ''}" style="width:${Math.max(2, b.value / max * 72)}%"></div><span class="bv">${esc(b.display ?? b.value)}</span></div></div>`).join('')}</div>` : '') +
       (L.soft ? `<p class="soft">${esc(L.soft)}</p>` : '');
   }
-  function cardHTML(d) {
-    const L = story.layers[d], n = story.layers.length, last = d === n - 1;
-    const foot = last
-      ? `<div class="endnote">Bottom step. You went ${n} steps under one headline.</div><div class="endbtns"><button class="deeper" type="button" data-list>Pick another headline</button><a href="#join">Get early access</a></div>`
-      : `<button class="deeper" type="button" data-deeper>↑ Go deeper: ${esc(L.deeper)}</button>`;
-    const src = L.src ? `<div class="src"><span class="conf${L.src.conf === 'Confirmed' ? '' : ' likely'}">${esc(L.src.conf)}</span>${esc(L.src.text)}</div>` : '';
-    return `<div class="eb">Step ${d + 1} of ${n} · ${esc(L.title)}</div><div class="mid">${d === 0 ? `<h4>${head(story)}</h4>` : ''}${layerHTML(L)}${foot}</div>${src}`;
+  // Each step becomes one or two slides: the idea first, then its numbers. The headline opens, a short wrap-up closes.
+  function slidesOf(s) {
+    const out = [{ cover: true, title: 'The headline' }];
+    s.layers.forEach((L, i) => {
+      const deeper = i < s.layers.length - 1 ? L.deeper : '';
+      if ((L.lines || L.bars) && ((L.text || []).length || L.term)) {
+        out.push({ title: L.title, term: L.term, text: L.text, formula: L.formula, example: L.example, next: 'the numbers' });
+        out.push({ title: L.title, lines: L.lines, bars: L.bars, soft: L.soft, src: L.src, deeper });
+      } else out.push({ ...L, deeper });
+    });
+    out.push({ end: true, title: 'Done' });
+    return out;
   }
-  const kindOf = d => d === 0 ? 'cover' : story.layers[d].term ? 'concept' : '';
+  function cardHTML(d) {
+    const L = story.slides[d], n = story.slides.length - 2;
+    if (L.cover) return `<div class="eb">Today’s story</div><div class="mid"><h4>${head(story)}</h4><button class="deeper" type="button" data-deeper>↑ Start: ${esc(story.layers[0].title)}</button></div>`;
+    if (L.end) return `<div class="eb">Done</div><div class="mid"><h4>You went ${n} steps under one headline.</h4><button class="deeper" type="button" data-list>Pick another headline</button></div>`;
+    const label = L.next ? `Next: ${L.next}` : L.deeper ? `Go deeper: ${L.deeper}` : 'Finish';
+    const src = L.src ? `<div class="src"><span class="conf${L.src.conf === 'Confirmed' ? '' : ' likely'}">${esc(L.src.conf)}</span>${esc(L.src.text)}</div>` : '';
+    return `<div class="eb">Step ${d} of ${n} · ${esc(L.title)}</div><div class="mid">${layerHTML(L)}<button class="deeper" type="button" data-deeper>↑ ${esc(label)}</button></div>${src}`;
+  }
+  const kindOf = d => story.slides[d].cover ? 'cover' : story.slides[d].term ? 'concept' : '';
   function wallHTML() {
     return `<div class="eb">Today’s 10 free slides are used up</div><div class="mid"><h4>Want the next step?</h4>
       <p class="soft">In the app you get 10 free slides every day. Explained Plus unlocks every slide of every story.</p>
@@ -681,7 +694,7 @@
   }
   function render() {
     if (!story) return renderList();
-    const n = story.layers.length, next = story.layers[depth + 1];
+    const n = story.slides.length, next = story.slides[depth + 1];
     if (!spend(story.id + ':' + depth)) {
       deck.innerHTML = `<div class="scard wall" id="topcard">${wallHTML()}</div>`;
       bar.style.width = '100%'; cnt.textContent = '⚡ 0'; back.disabled = false; hint.textContent = '10 more free slides tomorrow';
@@ -714,7 +727,7 @@
     if (dir === 'down') el.style.opacity = '0';
     setTimeout(() => { then(); render(); }, 220);
   }
-  const deeper = () => { if (story && depth < story.layers.length - 1) fly('up', () => depth++); };
+  const deeper = () => { if (story && depth < story.slides.length - 1) fly('up', () => depth++); };
   const upLevel = () => { if (!story) return; if (depth === 0) { story = null; render(); } else fly('down', () => depth--); };
   function bind() {
     const el = document.getElementById('topcard');
@@ -723,7 +736,7 @@
     el.addEventListener('pointermove', e => { if (!down) return; dx = e.clientX - sx; dy = e.clientY - sy; el.style.transform = `translate(${dx * .15}px, ${dy * (dy < 0 ? .9 : .6)}px)`; });
     const end = () => {
       if (!down) return; down = false;
-      if (dy < -60 && Math.abs(dy) > Math.abs(dx) && depth < story.layers.length - 1) deeper();
+      if (dy < -60 && Math.abs(dy) > Math.abs(dx) && depth < story.slides.length - 1) deeper();
       else if (dy > 70 && Math.abs(dy) > Math.abs(dx)) upLevel();
       else { el.style.transition = 'transform .22s cubic-bezier(.3,1.4,.6,1)'; el.style.transform = ''; }
     };
