@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Explained: Anything, Explained Step by Step</title>
+<title>Explained: Stop Nodding Along</title>
 <meta name="description" content="Pick the topics you care about: the news, money, science, philosophy, history and more. A 10-question quiz finds your level. Then every idea is built up step by step, at your level.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Explained: Anything, Explained Step by Step">
+<meta property="og:title" content="Explained: Stop Nodding Along">
 <meta property="og:description" content="Pick a topic. A quick quiz finds your level. Then every idea builds up step by step. Join the waitlist.">
 <meta property="og:url" content="https://ideaswithakshay.github.io/explained/">
 <meta property="og:image" content="https://ideaswithakshay.github.io/explained/img/og.png?v=5">
@@ -388,6 +388,9 @@
   .paste input[type=url]:focus { border-color:var(--g); }
   @media (max-width:520px) { .paste input[type=url] { flex:none; width:100%; } }
   .pasted { max-width:500px; margin:-12px 0 20px; padding:14px 16px; border-radius:16px; background:var(--g-soft); color:var(--ink); font-size:15px; }
+  .nl-paste { display:flex; gap:6px; flex:none; }
+  .nl-paste input { flex:1; min-width:0; height:36px; border-radius:10px; border:1px solid #D2D2D7; padding:0 10px; font:400 13px var(--text); background:#fff; }
+  .nl-paste button { height:36px; border:0; border-radius:999px; padding:0 14px; background:var(--g); color:#fff; font:600 13px var(--text); cursor:pointer; }
 </style>
 </head>
 <body>
@@ -397,21 +400,14 @@
 
   <header class="hero">
     <div>
-      <span class="pill">Anything, explained step by step</span>
-      <h1>Finally <span class="hl">understand</span> anything.</h1>
-      <p class="lead">Paste a link to anything you want to understand, or pick a topic: today’s news, money, science, philosophy, history and more. A quick quiz finds your level. Then every idea is built up step by step, at your level, and connected to everything else you know.</p>
-      <form class="paste" id="pasteForm">
-        <label for="pasteUrl" class="q">Paste a link to anything you want to understand</label>
-        <div class="row"><input type="url" id="pasteUrl" name="url" placeholder="An article, a video, a paper…" required><button class="btn" type="submit">Explain it</button></div>
-        <p class="fine">We break it into steps at your level and connect every idea to the rest of your map.</p>
-      </form>
-      <div class="pasted" id="pasted" hidden><b>Got it.</b> Explained is in early access. Leave your email below and we’ll explain this link for you first.</div>
+            <h1>Stop nodding <span class="hl">along</span>.</h1>
+      <p class="lead">Don’t just sound smart. Be smart. Paste a link to anything, or pick a topic: the news, money, science, philosophy and more. Explained builds it up from first principles, one step at a time, at your level.</p>
       <form class="waitlist" data-where="hero">
         <div class="row">
           <input type="email" name="email" placeholder="Your email" required autocomplete="email">
           <button class="btn" type="submit">Get early access</button>
         </div>
-        <div class="topics" role="group" aria-label="Topics you want to understand"><span>Or pick topics you want to understand:</span><label><input type="checkbox" name="topic" value="news" checked><span>The news</span></label><label><input type="checkbox" name="topic" value="money"><span>Money</span></label><label><input type="checkbox" name="topic" value="science"><span>Science</span></label><label><input type="checkbox" name="topic" value="philosophy"><span>Philosophy</span></label><label><input type="checkbox" name="topic" value="history"><span>History</span></label><label><input type="checkbox" name="topic" value="health"><span>Health</span></label><label><input type="checkbox" name="topic" value="tech"><span>Tech</span></label><label><input type="checkbox" name="topic" value="mind"><span>The mind</span></label><label><input type="checkbox" name="topic" value="society"><span>Society</span></label><label><input type="checkbox" name="topic" value="arts"><span>The arts</span></label></div>
+        <div class="topics" role="group" aria-label="Topics you want to understand"><span>Topics you want to understand:</span><label><input type="checkbox" name="topic" value="news" checked><span>The news</span></label><label><input type="checkbox" name="topic" value="money"><span>Money</span></label><label><input type="checkbox" name="topic" value="science"><span>Science</span></label><label><input type="checkbox" name="topic" value="philosophy"><span>Philosophy</span></label><label><input type="checkbox" name="topic" value="history"><span>History</span></label><label><input type="checkbox" name="topic" value="health"><span>Health</span></label><label><input type="checkbox" name="topic" value="tech"><span>Tech</span></label><label><input type="checkbox" name="topic" value="mind"><span>The mind</span></label><label><input type="checkbox" name="topic" value="society"><span>Society</span></label><label><input type="checkbox" name="topic" value="arts"><span>The arts</span></label></div>
         <div class="phones"><span>My phone:</span>
           <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
           <label><input type="radio" name="phone" value="android"><span>Android</span></label>
@@ -429,7 +425,7 @@
           <div class="swipehint" id="swipeHint">Tap a headline</div>
         </div>
       </div>
-      <div class="tryme">Try the news puzzle: pick any headline, then swipe up to go a step deeper.</div>
+      <div class="tryme">Paste any link in the phone, or pick one of today’s headlines.</div>
     </div>
   </header>
 </div>
@@ -626,13 +622,36 @@
     story = null;
     const shown = STORIES.filter(s => filter === 'all' || s.branch === filter);
     const chips = ['all', ...Object.keys(BR).filter(b => STORIES.some(s => s.branch === b))];
-    deck.innerHTML = `<div class="nlist"><div class="nl-top"><b>Today’s news</b><span>${STORIES.length} stories</span></div>
+    deck.innerHTML = `<div class="nlist"><form class="nl-paste" id="nlPaste"><input type="url" name="url" placeholder="Paste a link to explain" required aria-label="Paste a link to explain"><button type="submit">Explain</button></form>
+      <div class="nl-top"><b>Today’s news</b><span>${STORIES.length} stories</span></div>
       <div class="nl-chips">${chips.map(c => `<button type="button" class="nl-chip${c === filter ? ' on' : ''}" data-f="${c}">${c === 'all' ? 'All' : BR[c][0]}</button>`).join('')}</div>
       ${shown.map((s, i) => `<button class="nl${!touched && i === 0 ? ' nudge' : ''}" type="button" data-s="${STORIES.indexOf(s)}"><span class="nl-tag"><i style="background:${BR[s.branch][1]}"></i>${BR[s.branch][0]} · ${day(s.date)} · ${s.layers.length} steps deep</span><span class="nl-h">${head(s)}</span></button>`).join('')}</div>`;
     bar.style.width = '0%'; cnt.textContent = 'Today'; back.disabled = true;
     hint.textContent = `Pick any headline · ⚡ ${left()} free slides today`;
+    deck.querySelector('#nlPaste').addEventListener('submit', e => { e.preventDefault(); explainLink(new FormData(e.target).get('url')); });
     deck.querySelectorAll('.nl-chip').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderList(); }));
     deck.querySelectorAll('.nl').forEach(b => b.addEventListener('click', () => { touched = true; story = STORIES[+b.dataset.s]; depth = 0; log(`news:${story.id}:open`); render(); }));
+  }
+  // Paste a link: ask the explain server, then show its steps like any other story.
+  const API = 'https://explained-api.newsible.workers.dev/explain';
+  function note(title, msg, wait) {
+    deck.innerHTML = `<div class="scard" id="topcard"><div class="eb">${wait ? 'Reading the page' : 'Explain a link'}</div><div class="mid"><h4>${esc(title)}</h4><p class="soft">${esc(msg)}</p>
+      ${wait ? '' : '<div class="endbtns"><button class="deeper" type="button" data-list>Back to the headlines</button><a href="#join">Get early access</a></div>'}</div></div>`;
+    deck.querySelector('[data-list]')?.addEventListener('click', () => { story = null; render(); });
+    bar.style.width = wait ? '30%' : '0%'; back.disabled = false;
+  }
+  async function explainLink(url) {
+    log('paste'); window.fsLog && window.fsLog('paste', { where: 'phone', link: String(url).slice(0, 500) });
+    note('Explaining…', 'Reading the page and building it up step by step. This takes about 20 seconds.', true);
+    hint.textContent = 'Working on it';
+    try {
+      const r = await fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url, level: 3 }) });
+      const d = await r.json();
+      if (!r.ok) return note('Not right now', (d.message || 'That didn’t work.') + ' Join the waitlist and we’ll explain it for you first.');
+      story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
+        layers: d.steps.map((s, i) => ({ title: s.title, term: s.term || undefined, text: s.text, example: s.example || undefined, deeper: i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined })) };
+      depth = 0; render();
+    } catch (e) { note('Not right now', 'We couldn’t reach the explainer. Join the waitlist and we’ll explain it for you first.'); }
   }
   function layerHTML(L) {
     const max = L.bars ? Math.max(...L.bars.map(b => b.value)) : 1;
