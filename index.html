@@ -676,7 +676,14 @@
       const d = await r.json();
       if (!r.ok) return note(d.error === 'blocked' ? 'We don’t do that' : 'Not right now', d.message || 'That didn’t work.');
       story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
-        layers: d.steps.map((s, i) => ({ title: s.title, term: s.term || undefined, text: s.text, example: s.example || undefined, deeper: i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined })) };
+        // One paragraph per slide, and the example on its own slide, so nothing is crowded.
+        layers: d.steps.flatMap((s, i) => {
+          const parts = s.text.map((txt, k) => ({ title: s.title, term: k === 0 ? s.term || undefined : undefined, text: [txt] }));
+          if (s.example) parts.push({ title: s.title, text: [], example: s.example });
+          parts.forEach((L, k) => { if (k < parts.length - 1) L.next = parts[k + 1].example ? 'an example' : 'keep reading'; });
+          parts[parts.length - 1].deeper = i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined;
+          return parts;
+        }) };
       story.slides = slidesOf(story); depth = 0; render();
     } catch (e) { note('Not right now', 'We couldn’t reach the explainer.'); }
   }
