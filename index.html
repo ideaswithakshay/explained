@@ -403,6 +403,14 @@
   .dom span { font:400 9.5px var(--text); color:#86868B; }
   .dom.soon { cursor:default; background:#FAFAFC; }
   .dom.soon b { color:#86868B; }
+  .scard .ex::before { content:"Example"; display:block; font:600 9.5px var(--text); letter-spacing:.08em; text-transform:uppercase; color:#1F7A36; margin-bottom:4px; }
+  .scard .mid > .ex:first-child { font-size:15px; line-height:1.45; padding:14px; color:#1D1D1F; }
+  .scard h4.sh { font-size:20px; line-height:1.18; margin-bottom:2px; }
+  .scard .lines div { font-size:15px; }
+  .scard .bars { gap:10px; }
+  .scard .bl { font-size:12.5px; }
+  .scard .bf { height:16px; }
+  .scard .bv { font-size:14px; }
 </style>
 </head>
 <body>
@@ -676,11 +684,21 @@
       const d = await r.json();
       if (!r.ok) return note(d.error === 'blocked' ? 'We don’t do that' : 'Not right now', d.message || 'That didn’t work.');
       story = { id: 'paste-' + Date.now(), head: d.head || d.title, branch: 'news', date: new Date().toISOString().slice(0, 10),
-        // One paragraph per slide, and the example on its own slide, so nothing is crowded.
+        // Pack each step onto slides by size: full enough to read well, never crowded. Numbers get their own slide.
         layers: d.steps.flatMap((s, i) => {
-          const parts = s.text.map((txt, k) => ({ title: s.title, term: k === 0 ? s.term || undefined : undefined, text: [txt] }));
-          if (s.example) parts.push({ title: s.title, text: [], example: s.example });
-          parts.forEach((L, k) => { if (k < parts.length - 1) L.next = parts[k + 1].example ? 'an example' : 'keep reading'; });
+          const MAX = 300, parts = [];
+          let cur = { title: s.title, term: s.term || undefined, text: [] }, size = s.term ? 60 : 0;
+          for (const para of s.text) {
+            if (cur.text.length && size + para.length > MAX) { parts.push(cur); cur = { title: s.title, text: [] }; size = 0; }
+            cur.text.push(para); size += para.length;
+          }
+          if (s.example) {
+            if (cur.text.length && size + s.example.length > MAX + 60) { parts.push(cur); cur = { title: s.title, text: [] }; }
+            cur.example = s.example;
+          }
+          parts.push(cur);
+          if ((s.lines && s.lines.length) || (s.bars && s.bars.length > 1)) parts.push({ title: s.title, text: [], lines: s.lines && s.lines.length ? s.lines : undefined, bars: s.bars && s.bars.length > 1 ? s.bars : undefined });
+          parts.forEach((L, k) => { if (k < parts.length - 1) L.next = (parts[k + 1].lines || parts[k + 1].bars) ? 'the numbers' : 'keep reading'; });
           parts[parts.length - 1].deeper = i < d.steps.length - 1 ? (s.deeper || 'Next step') : undefined;
           return parts;
         }) };
@@ -716,7 +734,8 @@
     if (L.end) return `<div class="eb">Done</div><div class="mid"><h4>You went ${n} steps under one headline.</h4><button class="deeper" type="button" data-list>Pick another headline</button></div>`;
     const label = L.next ? `Next: ${L.next}` : L.deeper ? `Go deeper: ${L.deeper}` : 'Finish';
     const src = L.src ? `<div class="src"><span class="conf${L.src.conf === 'Confirmed' ? '' : ' likely'}">${esc(L.src.conf)}</span>${esc(L.src.text)}</div>` : '';
-    return `<div class="eb">Step ${d} of ${n} · ${esc(L.title)}</div><div class="mid">${layerHTML(L)}<button class="deeper" type="button" data-deeper>↑ ${esc(label)}</button></div>${src}`;
+    const headline = L.term ? '' : `<h4 class="sh">${esc(L.title)}</h4>`;   // every slide without a big term gets its step title as a heading
+    return `<div class="eb">Step ${d} of ${n}</div><div class="mid">${headline}${layerHTML(L)}<button class="deeper" type="button" data-deeper>↑ ${esc(label)}</button></div>${src}`;
   }
   const kindOf = d => story.slides[d].cover ? 'cover' : story.slides[d].term ? 'concept' : '';
   function wallHTML() {
