@@ -3,49 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Finspeak: Stop Nodding Along to the News</title>
-<meta name="description" content="Pick a money or business headline. Tap the jargon. Go as deep as you want, one layer at a time, in plain English with real numbers.">
+<title>Newsible: News, Explained Step by Step</title>
+<meta name="description" content="Pick a headline from today’s news: politics, science, health, tech, money. Tap the jargon. Go as deep as you want, one step at a time, with real numbers and a source for every fact.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Finspeak: Stop Nodding Along to the News">
-<meta property="og:description" content="Pick a headline. Go as deep as you want, one layer at a time. Join the waitlist.">
+<meta property="og:title" content="Newsible: News, Explained Step by Step">
+<meta property="og:description" content="Pick a headline. Go as deep as you want, one step at a time. Join the waitlist.">
 <meta property="og:url" content="https://ideaswithakshay.github.io/finspeak-site/">
-<meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
+<meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=2">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
-<link rel="icon" href="img/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="img/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="twitter:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=2">
+<link rel="icon" href="img/icon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icon.png?v=2">
 <style>
   :root {
-    --bg:#FBFAF6; --surface:#FFFFFF; --surface2:#F1F5EE; --ink:#0F1A14; --sub:rgba(15,26,20,.62); --line:#E6E4DC;
-    --g:#12B76A; --g-dark:#0A8A4E; --g-soft:#E2F6EB; --gold:#FFB020; --gold-dark:#D98E00;
-    --red:#E5484D; --red-dark:#B8343A; --red-soft:#FDECEC; --blue:#4C7DFF;
-    --night:#0C1310; --night2:#151F1A; --night-ink:#EAF2EC; --night-sub:rgba(234,242,236,.62);
+    --bg:#FBFBFD; --surface:#FFFFFF; --surface2:#F5F5F7; --ink:#1D1D1F; --sub:#6E6E73; --line:#E3E3E8;
+    --g:#0071E3; --g-dark:#0058B0; --g-soft:#EAF3FE; --gold:#FF9F0A; --gold-dark:#C77700;
+    --ok:#34C759; --ok-dark:#1F7A36; --ok-soft:#EBF8EF;
+    --red:#FF3B30; --red-dark:#D70015; --red-soft:#FFEDEE; --blue:#0071E3;
+    --night:#000000; --night2:#1C1C1E; --night-ink:#F5F5F7; --night-sub:rgba(245,245,247,.62);
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.07);
+    --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
-  body { background:var(--bg); color:var(--ink); font:17px/1.55 Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  h1,h2,h3,h4 { font-family:Nunito,ui-rounded,system-ui,sans-serif; font-weight:900; letter-spacing:-.02em; line-height:1.08; }
+  body { background:var(--bg); color:var(--ink); font:17px/1.5 var(--text); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  h1,h2,h3,h4 { font-family:var(--display); font-weight:700; letter-spacing:-.035em; line-height:1.06; }
   a { color:inherit; }
   button { font:inherit; color:inherit; }
   .wrap { max-width:1120px; margin:0 auto; padding:0 20px; }
   .glow { position:absolute; inset:-220px 0 auto; height:760px; pointer-events:none; z-index:0;
-          background:radial-gradient(520px 340px at 72% 38%, rgba(18,183,106,.20), transparent 70%), radial-gradient(420px 300px at 18% 20%, rgba(255,176,32,.14), transparent 70%); }
+          background:radial-gradient(560px 360px at 72% 38%, rgba(0,113,227,.09), transparent 70%); }
 
   /* nav */
   nav.top { display:flex; align-items:center; justify-content:space-between; padding:20px 0; position:relative; z-index:2; }
-  .brand { display:flex; gap:10px; align-items:center; font:900 23px Nunito,sans-serif; text-decoration:none; }
+  .brand { display:flex; gap:10px; align-items:center; font:700 23px var(--display); text-decoration:none; }
   .brand img { width:36px; height:36px; border-radius:10px; }
   .brand span { color:var(--g); }
   .nav-cta { font-weight:600; font-size:15px; text-decoration:none; padding:9px 16px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
 
   /* buttons: chunky and pressable */
-  .btn { height:56px; padding:0 26px; border:0; border-radius:16px; background:var(--g); color:#fff; font:900 17px Nunito,sans-serif;
-         letter-spacing:.01em; cursor:pointer; box-shadow:0 4px 0 var(--g-dark); white-space:nowrap; transition:transform .06s, box-shadow .06s; }
+  .btn { height:52px; padding:0 24px; border:0; border-radius:999px; background:var(--g); color:#fff; font:700 17px var(--display);
+         letter-spacing:.01em; cursor:pointer; box-shadow:none; white-space:nowrap; transition:transform .06s, box-shadow .06s; }
   .btn:active { transform:translateY(4px); box-shadow:0 0 0 var(--g-dark); }
-  .btn.gold { background:var(--gold); color:#3A2600; box-shadow:0 4px 0 var(--gold-dark); }
+  .btn.gold { background:var(--ink); color:#fff; box-shadow:none; }
 
   /* hero */
   .hero > div { min-width:0; }
@@ -53,108 +54,107 @@
   .pill { display:inline-flex; gap:8px; align-items:center; font-size:14px; font-weight:600; padding:7px 14px; border-radius:99px;
           background:var(--surface); border:1px solid var(--line); color:var(--sub); margin-bottom:22px; }
   .hero h1 { font-size:clamp(46px,7.2vw,82px); }
-  .hl { color:var(--g); position:relative; white-space:nowrap; }
-  .hl::after { content:""; position:absolute; left:2%; right:2%; bottom:.04em; height:.16em; background:var(--gold); border-radius:99px; z-index:-1; opacity:.85; }
+  .hl { color:var(--g); white-space:nowrap; }
   .lead { font-size:20px; color:var(--sub); margin:22px 0 28px; max-width:540px; }
 
   /* waitlist form */
   form.waitlist { display:flex; flex-direction:column; gap:14px; max-width:500px; }
-  .q { font:800 15px Nunito,sans-serif; color:var(--ink); }
-                       border:2px solid var(--line); box-shadow:0 3px 0 var(--line); font:800 13.5px/1.2 Nunito,sans-serif; transition:transform .06s; }
+  .q { font:600 15px var(--display); color:var(--ink); }
+                       border:1px solid var(--line); box-shadow:none; font:600 13.5px/1.2 var(--display); transition:transform .06s; }
   .row { display:flex; gap:10px; }
-  input[type=email] { flex:1; min-width:0; height:56px; padding:0 18px; border-radius:16px; border:2px solid var(--line); background:var(--surface);
-                      color:var(--ink); font:500 16px Inter,sans-serif; outline:none; }
+  input[type=email] { flex:1; min-width:0; height:52px; padding:0 18px; border-radius:14px; border:1px solid var(--line); background:var(--surface);
+                      color:var(--ink); font:500 16px var(--text); outline:none; }
   input[type=email]:focus { border-color:var(--g); }
   .phones { display:flex; gap:8px; font-size:14px; color:var(--sub); align-items:center; flex-wrap:wrap; }
-  .phones label { cursor:pointer; padding:6px 13px; border-radius:99px; background:var(--surface); border:1.5px solid var(--line); }
+  .phones label { cursor:pointer; padding:6px 13px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
   .phones label:has(input:checked) { border-color:var(--g); color:var(--ink); }
   .fine { font-size:13px; color:var(--sub); }
-  .thanks { display:none; padding:20px 22px; border-radius:20px; background:var(--surface); border:2px solid var(--g); max-width:500px; }
-  .thanks b { font:900 22px Nunito,sans-serif; display:block; margin-bottom:4px; }
+  .thanks { display:none; padding:20px 22px; border-radius:20px; background:var(--surface); border:1px solid var(--g); max-width:500px; }
+  .thanks b { font:700 22px var(--display); display:block; margin-bottom:4px; }
   .thanks .btn { margin-top:14px; height:auto; min-height:48px; padding:12px 22px; font-size:16px; white-space:normal; }
 
   /* phone with a live lesson */
-  .phone { width:100%; max-width:318px; margin:0 auto; border-radius:50px; padding:11px; background:#0B0F0D; box-shadow:0 34px 70px rgba(15,40,25,.25), 0 0 0 1px rgba(0,0,0,.05); position:relative; }
+  .phone { width:100%; max-width:318px; margin:0 auto; border-radius:52px; padding:11px; background:#1D1D1F; box-shadow:0 34px 70px rgba(15,40,25,.25), 0 0 0 1px rgba(0,0,0,.05); position:relative; }
   .hero .phone { transform:rotate(2.5deg); }
   .screen { background:#fff; border-radius:40px; min-height:600px; padding:18px 16px 16px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
-  .notch { width:96px; height:26px; background:#0B0F0D; border-radius:99px; margin:0 auto 14px; }
+  .notch { width:96px; height:26px; background:#1D1D1F; border-radius:99px; margin:0 auto 14px; }
   .appbar { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
   .appbar .x { color:#A9B1AC; font-size:18px; font-weight:700; }
-  .bar { flex:1; height:14px; border-radius:99px; background:#E9ECEA; overflow:hidden; }
-  .bar i { display:block; height:100%; width:40%; background:var(--g); border-radius:99px; transition:width .5s; box-shadow:inset 0 -3px 0 rgba(0,0,0,.12); }
-  .streak { font:900 15px Nunito,sans-serif; color:#FF8A00; }
-  .tag { font:900 12px Nunito,sans-serif; letter-spacing:.08em; color:var(--blue); text-transform:uppercase; margin-bottom:8px; }
-  .word { font:900 28px Nunito,sans-serif; margin-bottom:8px; }
+  .bar { flex:1; height:4px; border-radius:99px; background:#D2D2D7; overflow:hidden; }
+  .bar i { display:block; height:100%; width:40%; background:#1D1D1F; border-radius:99px; transition:width .5s; }
+  .streak { font:700 15px var(--display); color:#FF8A00; }
+  .tag { font:700 12px var(--display); letter-spacing:.08em; color:var(--blue); text-transform:uppercase; margin-bottom:8px; }
+  .word { font:700 28px var(--display); margin-bottom:8px; }
   .qtext { font-size:15.5px; line-height:1.45; color:#2B3530; margin-bottom:16px; white-space:pre-line; }
   .opts { display:grid; gap:9px; }
-  .opt { text-align:left; padding:12px 14px; border-radius:14px; background:#fff; border:2px solid #E5E7E6; box-shadow:0 3px 0 #E5E7E6;
-         font:800 15px Nunito,sans-serif; cursor:pointer; transition:transform .06s; }
+  .opt { text-align:left; padding:12px 14px; border-radius:14px; background:#fff; border:1px solid #E5E7E6; box-shadow:none;
+         font:600 15px var(--display); cursor:pointer; transition:transform .06s; }
   .opt:active { transform:translateY(2px); }
-  .opt.right { border-color:var(--g); background:var(--g-soft); box-shadow:0 3px 0 var(--g); color:var(--g-dark); }
-  .opt.wrong { border-color:var(--red); background:var(--red-soft); box-shadow:0 3px 0 var(--red); color:var(--red-dark); }
+  .opt.right { border-color:var(--ok); background:var(--ok-soft); color:var(--ok-dark); }
+  .opt.wrong { border-color:var(--red); background:var(--red-soft); box-shadow:none; color:var(--red-dark); }
   .opts.done .opt { cursor:default; }
   .sheet { position:absolute; left:0; right:0; bottom:0; padding:18px 18px 20px; background:var(--g-soft); transform:translateY(105%); transition:transform .28s ease; }
   .sheet.show { transform:none; }
   .sheet.bad { background:var(--red-soft); }
-  .sheet h5 { font:900 21px Nunito,sans-serif; color:var(--g-dark); margin-bottom:4px; }
+  .sheet h5 { font:700 21px var(--display); color:var(--g-dark); margin-bottom:4px; }
   .sheet.bad h5 { color:var(--red-dark); }
   .sheet p { font-size:14px; line-height:1.45; color:#25302A; margin-bottom:12px; }
   .sheet .btn { width:100%; height:48px; font-size:16px; }
-  .sheet.bad .btn { background:var(--red); box-shadow:0 4px 0 var(--red-dark); }
+  .sheet.bad .btn { background:var(--red); box-shadow:none; }
   .endcard { display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:10px; padding:10px 6px 20px; }
   .endcard .big { font-size:64px; }
   .endcard h4 { font-size:26px; }
   .endcard p { font-size:15px; color:#4A544F; }
   .endcard .btn { width:100%; margin-top:8px; }
-  .endcard button.link { background:none; border:0; color:var(--blue); font:800 15px Nunito,sans-serif; cursor:pointer; padding:8px; }
-  .xp { position:absolute; top:76px; right:18px; font:900 18px Nunito,sans-serif; color:var(--gold-dark); opacity:0; }
+  .endcard button.link { background:none; border:0; color:var(--blue); font:600 15px var(--display); cursor:pointer; padding:8px; }
+  .xp { position:absolute; top:76px; right:18px; font:700 18px var(--display); color:var(--gold-dark); opacity:0; }
   .xp.pop { animation:pop 1s ease forwards; }
   @keyframes pop { 0%{opacity:0; transform:translateY(8px)} 25%{opacity:1; transform:none} 75%{opacity:1} 100%{opacity:0; transform:translateY(-14px)} }
-  .tryme { text-align:center; margin-top:18px; font:800 14px Nunito,sans-serif; color:var(--sub); }
+  .tryme { text-align:center; margin-top:18px; font:600 14px var(--display); color:var(--sub); }
 
   /* sections */
   section { padding:90px 0; position:relative; }
-  .eyebrow { color:var(--g); font:900 14px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:12px; }
+  .eyebrow { color:var(--g); font:700 14px var(--display); letter-spacing:.09em; text-transform:uppercase; margin-bottom:12px; }
   h2 { font-size:clamp(34px,5vw,54px); margin-bottom:16px; }
   .sub { color:var(--sub); font-size:19px; max-width:640px; }
 
   /* how it works */
   .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
-  .card { background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:26px; }
-  .card .n { width:44px; height:44px; border-radius:14px; background:var(--g); color:#fff; font:900 21px Nunito,sans-serif; display:grid; place-items:center; margin-bottom:16px; box-shadow:0 3px 0 var(--g-dark); }
+  .card { background:var(--surface); border:.5px solid var(--line); box-shadow:var(--shadow); border-radius:24px; padding:26px; }
+  .card .n { width:36px; height:36px; border-radius:50%; background:var(--g); color:#fff; font:700 21px var(--display); display:grid; place-items:center; margin-bottom:16px; box-shadow:none; }
   .card h3 { font-size:23px; margin-bottom:8px; }
   .card p { color:var(--sub); }
   .feats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px; }
-  .feat { display:flex; gap:16px; align-items:center; background:var(--surface); border:2px solid var(--line); border-radius:22px; padding:18px; }
+  .feat { display:flex; gap:16px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:18px; }
   .feat .e { font-size:30px; width:60px; height:60px; border-radius:18px; background:var(--surface2); display:grid; place-items:center; flex:none; }
   .feat h3 { font-size:20px; margin-bottom:3px; }
 
   /* say it like a pro (dark, like Imprint's cards) */
   .night { background:var(--night); color:var(--night-ink); }
-  .night .eyebrow { color:#3EE08F; }
+  .night .eyebrow { color:#2997FF; }
   .night .sub { color:var(--night-sub); }
   .swaps { display:grid; gap:14px; margin-top:44px; }
   .swap { display:grid; grid-template-columns:1fr 1fr 1.05fr; gap:0; border-radius:22px; overflow:hidden; background:var(--night2); border:1px solid rgba(255,255,255,.07); }
   .swap > div { padding:18px 20px; }
-  .swap .lab { font:900 11.5px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+  .swap .lab { font:700 11.5px var(--display); letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
   .swap .no .lab { color:#FF7A85; }
-  .swap .yes .lab { color:#3EE08F; }
+  .swap .yes .lab { color:#30D158; }
   .swap .why .lab { color:#8FA8FF; }
-  .swap .no p { color:rgba(234,242,236,.55); text-decoration:line-through; text-decoration-color:rgba(255,122,133,.6); font:700 17px Nunito,sans-serif; }
-  .swap .yes { background:rgba(62,224,143,.07); }
-  .swap .yes p { font:800 18px/1.3 Nunito,sans-serif; }
+  .swap .no p { color:rgba(234,242,236,.55); text-decoration:line-through; text-decoration-color:rgba(255,122,133,.6); font:500 17px var(--display); }
+  .swap .yes { background:rgba(48,209,88,.06); }
+  .swap .yes p { font:600 18px/1.3 var(--display); }
   .swap .why p { font-size:15px; color:var(--night-sub); }
 
   /* math */
-  .chart-card { margin-top:40px; background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:22px 24px 18px; }
+  .chart-card { margin-top:40px; background:var(--surface); border:1px solid var(--line); border-radius:26px; padding:22px 24px 18px; }
   .sliders { display:grid; grid-template-columns:repeat(4,1fr); gap:16px 24px; padding-bottom:18px; margin-bottom:16px; border-bottom:1px solid var(--line); }
   .sl { display:flex; flex-direction:column; justify-content:space-between; gap:10px; font-size:14px; color:var(--sub); cursor:pointer; }
   .sl-top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
-  .sl-top b { font:900 19px Nunito,sans-serif; color:var(--ink); white-space:nowrap; }
+  .sl-top b { font:700 19px var(--display); color:var(--ink); white-space:nowrap; }
   .sl input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:99px; margin:4px 0; outline:none; cursor:pointer;
                           background:linear-gradient(to right, var(--g) var(--p,50%), #E5E7E6 var(--p,50%)); }
-  .sl input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:0 2px 0 var(--g-dark); }
-  .sl input[type=range]::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:0 2px 0 var(--g-dark); }
+  .sl input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:none; }
+  .sl input[type=range]::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:none; }
   .sl input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow:0 0 0 5px var(--g-soft); }
   .legend { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:14px; color:var(--sub); margin-bottom:8px; }
   .legend span { display:inline-flex; align-items:center; gap:8px; }
@@ -165,7 +165,7 @@
   .plot svg { display:block; width:100%; overflow:visible; }
   .tip { position:absolute; top:10px; pointer-events:none; background:#fff; border:1px solid var(--line); border-radius:12px;
          box-shadow:0 10px 30px rgba(15,26,20,.12); padding:10px 12px; font-size:13px; min-width:172px; z-index:3; }
-  .tip .t { font:800 13px Nunito,sans-serif; color:var(--sub); margin-bottom:5px; }
+  .tip .t { font:600 13px var(--display); color:var(--sub); margin-bottom:5px; }
   .tip .r { display:flex; align-items:center; gap:8px; margin-top:3px; }
   .tip .r b { font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
   .tip .r span { color:var(--sub); }
@@ -176,36 +176,36 @@
   .mathline b { color:var(--ink); font-weight:600; }
   .mathline span { white-space:nowrap; }
   details.tableview { border:0; padding:0; margin-top:12px; background:none; }
-  details.tableview summary { font:800 15px Nunito,sans-serif; color:var(--g-dark); justify-content:flex-start; }
+  details.tableview summary { font:600 15px var(--display); color:var(--g-dark); justify-content:flex-start; }
   details.tableview summary::after { margin-left:4px; }
   .tableview table { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; font-variant-numeric:tabular-nums; }
   .tableview th, .tableview td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--line); }
   .tableview th:first-child, .tableview td:first-child { text-align:left; }
-  .tableview th { font:800 13px Nunito,sans-serif; color:var(--sub); }
+  .tableview th { font:600 13px var(--display); color:var(--sub); }
   .note { margin-top:18px; color:var(--sub); font-size:14px; max-width:760px; }
 
-  .flip { margin-top:30px; display:grid; grid-template-columns:1fr 1fr; border-radius:26px; overflow:hidden; border:2px solid var(--line); background:var(--surface); }
+  .flip { margin-top:30px; display:grid; grid-template-columns:1fr 1fr; border-radius:26px; overflow:hidden; border:1px solid var(--line); background:var(--surface); }
   .flip > div { padding:22px 24px; }
   .flip-head, .flip-foot { grid-column:1 / -1; }
   .flip-head { padding-bottom:4px !important; }
   .flip-head h3 { font-size:clamp(24px,3vw,30px); }
   .flip .pay { background:#FFF6F6; border-right:1px solid var(--line); }
   .flip .earn { background:#F1FBF5; }
-  .flip .lab { font:900 12px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+  .flip .lab { font:700 12px var(--display); letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
   .flip .pay .lab { color:var(--red-dark); }
   .flip .earn .lab { color:var(--g-dark); }
-  .flip .big { font:900 clamp(28px,3.4vw,38px) Nunito,sans-serif; letter-spacing:-.02em; margin-bottom:4px; }
+  .flip .big { font:700 clamp(28px,3.4vw,38px) var(--display); letter-spacing:-.02em; margin-bottom:4px; }
   .flip p { color:var(--sub); }
   .flip .how { display:block; margin-top:6px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; }
   .flip-foot { display:flex; align-items:center; justify-content:space-between; gap:14px 20px; flex-wrap:wrap; border-top:1px solid var(--line); }
-  .flip-foot b { font:800 18px/1.3 Nunito,sans-serif; max-width:560px; }
+  .flip-foot b { font:600 18px/1.3 var(--display); max-width:560px; }
   .flip-foot .btn { height:48px; font-size:16px; }
   .card .e { font-size:30px; width:58px; height:58px; border-radius:18px; background:var(--surface2); display:grid; place-items:center; margin-bottom:14px; }
 
   /* faq */
   .faq { margin-top:36px; display:grid; gap:12px; max-width:800px; }
-  details { background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:18px 22px; }
-  summary { cursor:pointer; font:800 19px Nunito,sans-serif; list-style:none; display:flex; justify-content:space-between; gap:12px; }
+  details { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:18px 22px; }
+  summary { cursor:pointer; font:600 19px var(--display); list-style:none; display:flex; justify-content:space-between; gap:12px; }
   summary::-webkit-details-marker { display:none; }
   summary::after { content:"+"; color:var(--g); font-size:24px; line-height:1; }
   details[open] summary::after { content:"–"; }
@@ -255,93 +255,93 @@
   }
   /* daily story demo (hero phone) */
   /* hero demo: news list + layers */
-  .appbar button.x { background:none; border:0; padding:0 6px 0 0; cursor:pointer; font:800 20px Nunito,sans-serif; color:#7E8C84; }
+  .appbar button.x { background:none; border:0; padding:0 6px 0 0; cursor:pointer; font:600 20px var(--display); color:#7E8C84; }
   .appbar button.x:disabled { opacity:.3; cursor:default; }
   .nlist { position:absolute; inset:0; display:flex; flex-direction:column; gap:9px; overflow-y:auto; }
   .nl-top { display:flex; justify-content:space-between; align-items:baseline; padding:0 2px; }
-  .nl-top b { font:900 19px Nunito,sans-serif; }
-  .nl-top span { font:800 10.5px Nunito,sans-serif; color:#8A978F; letter-spacing:.08em; text-transform:uppercase; }
-  .nl { text-align:left; display:flex; flex-direction:column; gap:5px; background:#fff; border:2px solid #DDE4E0; border-bottom-width:4px; border-radius:16px; padding:11px 12px; cursor:pointer; color:#14201A; font:inherit; }
-  .nl:first-of-type { background:#FFF3D6; border-color:#F5D99A; }
-  .nl:active { transform:translateY(2px); border-bottom-width:2px; }
+  .nl-top b { font:700 19px var(--display); }
+  .nl-top span { font:600 10.5px var(--display); color:#8A978F; letter-spacing:.08em; text-transform:uppercase; }
+  .nl { text-align:left; display:flex; flex-direction:column; gap:5px; background:#fff; border:.5px solid #E3E3E8; box-shadow:0 1px 2px rgba(0,0,0,.04), 0 4px 14px rgba(0,0,0,.06); border-radius:16px; padding:11px 12px; cursor:pointer; color:#14201A; font:inherit; }
+  
+  .nl:active { transform:scale(.985); }
   .nl.nudge { animation:nudge 1.4s ease-in-out 1s 2; }
   @keyframes nudge { 30% { transform:translateY(-4px); } 60% { transform:none; } }
   .nl-chips { display:flex; gap:6px; overflow-x:auto; padding:1px 0 2px; flex:none; scrollbar-width:none; }
   .nl-chips::-webkit-scrollbar { display:none; }
-  .nl-chip { flex:none; font:800 11.5px Nunito,sans-serif; padding:5px 11px; border-radius:99px; border:2px solid #DDE4E0; background:#fff; color:#4A5A52; cursor:pointer; }
-  .nl-chip.on { background:#14201A; border-color:#14201A; color:#fff; }
+  .nl-chip { flex:none; font:600 11.5px var(--display); padding:5px 11px; border-radius:99px; border:1px solid #DDE4E0; background:#fff; color:#4A5A52; cursor:pointer; }
+  .nl-chip.on { background:#1D1D1F; border-color:#1D1D1F; color:#fff; }
   .nl { flex:none; }
   .scard.tight p { font-size:14px; } .scard.tight .term { font-size:28px; } .scard.tight h4 { font-size:19px; } .scard.tight .lines div { font-size:12.5px; }
   .scard.tighter p { font-size:13px; } .scard.tighter .term { font-size:24px; } .scard.tighter .ex { font-size:12px; } .scard.tighter .mid { gap:7px; }
-  .nl-tag { display:flex; align-items:center; gap:6px; font:800 10px Nunito,sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#7E8C84; }
+  .nl-tag { display:flex; align-items:center; gap:6px; font:600 10px var(--display); letter-spacing:.06em; text-transform:uppercase; color:#7E8C84; }
   .nl-tag i { width:7px; height:7px; border-radius:50%; }
-  .nl-h { font:900 15px/1.25 Nunito,sans-serif; }
+  .nl-h { font:700 15px/1.25 var(--display); }
   .scard.cover h4 { font-size:22px; line-height:1.15; }
   .scard .lines { display:grid; gap:6px; }
-  .scard .lines div { font:700 13.5px/1.3 Nunito,sans-serif; padding-bottom:6px; border-bottom:2px solid rgba(20,32,26,.07); font-variant-numeric:tabular-nums; }
-  .scard .lines div:last-child { font-weight:900; border-bottom:0; padding-bottom:0; }
+  .scard .lines div { font:500 13.5px/1.3 var(--display); padding-bottom:6px; border-bottom:2px solid rgba(20,32,26,.07); font-variant-numeric:tabular-nums; }
+  .scard .lines div:last-child { font-weight:700; border-bottom:0; padding-bottom:0; }
   .scard.lv2 { box-shadow:inset 0 0 0 3px rgba(76,125,255,.16); }
   .scard.lv3 { box-shadow:inset 0 0 0 3px rgba(76,125,255,.26); }
   .scard.lv4 { box-shadow:inset 0 0 0 3px rgba(76,125,255,.36); }
   .scard.lv5 { box-shadow:inset 0 0 0 3px rgba(76,125,255,.5); }
-  .scard .endnote { font:800 13px/1.4 Nunito,sans-serif; color:#2D55C2; background:#E9EFFF; border-radius:12px; padding:9px 10px; }
+  .scard .endnote { font:600 13px/1.4 var(--display); color:#2D55C2; background:#E9EFFF; border-radius:12px; padding:9px 10px; }
   .scard .endbtns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  .scard .endbtns a { font:900 12.5px Nunito,sans-serif; color:#0A7D47; }
+  .scard .endbtns a { font:700 12.5px var(--display); color:#0A7D47; }
   @media (prefers-reduced-motion: reduce) { .nl.nudge { animation:none; } }
   /* headline decoder */
   .decode .swap .no p { text-decoration:none; color:rgba(234,242,236,.9); }
   .decode .swap .no .lab { color:#FFC04D; }
-  .screen.story { background:#F3F6F4; }
-  .appbar .cnt { font:800 12px Nunito,sans-serif; color:#8A978F; min-width:30px; text-align:right; }
+  .screen.story { background:#F5F5F7; }
+  .appbar .cnt { font:600 12px var(--display); color:#8A978F; min-width:30px; text-align:right; }
   .deck { position:relative; flex:1; min-height:478px; }
-  .scard { position:absolute; inset:0; background:#fff; border:2px solid #DDE4E0; border-bottom-width:5px; border-radius:22px; padding:16px 15px 13px;
+  .scard { position:absolute; inset:0; background:#fff; border:.5px solid #E3E3E8; box-shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.07); border-radius:22px; padding:16px 15px 13px;
            display:flex; flex-direction:column; gap:9px; touch-action:none; cursor:grab; user-select:none; -webkit-user-select:none; will-change:transform; }
   .scard.under { transform:translateY(9px) scale(.955); pointer-events:none; }
   .scard.under > * { visibility:hidden; }
-  .scard.concept { background:#E5F6EC; border-color:#BFE6CF; }
-  .scard.quiz { background:#E9EFFF; border-color:#C9D7FF; }
-  .scard.cover, .scard.recap { background:#FFF3D6; border-color:#F5D99A; }
+  .scard.concept { background:#fff; }
+  .scard.quiz { background:#fff; }
+  .scard.cover, .scard.recap { background:#fff; }
   .scard.deep { box-shadow:inset 0 0 0 3px rgba(76,125,255,.28); }
   .scard.wiggle { animation:wiggle 1.6s ease-in-out 1.2s 2; }
   @keyframes wiggle { 20% { transform:translateX(18px) rotate(1.5deg); } 45% { transform:translateX(-10px) rotate(-1deg); } 65%,100% { transform:none; } }
-  .scard .eb { font:900 10.5px Nunito,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#7E8C84; }
+  .scard .eb { font:700 10.5px var(--display); letter-spacing:.1em; text-transform:uppercase; color:#7E8C84; }
   .scard.concept .eb { color:#0A7D47; } .scard.quiz .eb, .scard.deep .eb { color:#2D55C2; } .scard.cover .eb, .scard.recap .eb { color:#9A6400; }
   .scard .mid { flex:1; display:flex; flex-direction:column; justify-content:center; gap:10px; }
   .scard h4 { font-size:27px; line-height:1.08; }
   .jgw { text-decoration:underline; text-decoration-color:#FFB020; text-decoration-thickness:3px; text-underline-offset:4px; text-decoration-skip-ink:none; }
-  .scard p { font:700 15.5px/1.4 Nunito,sans-serif; color:#14201A; }
-  .scard p.soft { font-weight:600; color:#4A5A52; }
-  .scard .bignum { font:900 25px Nunito,sans-serif; letter-spacing:-.01em; }
-  .scard .term { font:900 34px/1 Nunito,sans-serif; color:#0A7D47; }
-  .scard .formula { font:900 14px/1.35 Nunito,sans-serif; background:#fff; border:2px dashed #9ED9B8; border-radius:12px; padding:9px 10px; text-align:center; }
-  .scard .ex { font:600 13px/1.4 Inter,sans-serif; color:#4A5A52; background:rgba(255,255,255,.7); border-radius:12px; padding:9px 10px; }
-  .scard .src { display:flex; gap:6px; align-items:center; font:600 10.5px Inter,sans-serif; color:#7E8C84; }
-  .scard .conf { font:900 9px Nunito,sans-serif; letter-spacing:.06em; text-transform:uppercase; border-radius:99px; padding:2px 7px; background:#E5F6EC; color:#0A7D47; flex:none; }
+  .scard p { font:500 15.5px/1.42 var(--text); letter-spacing:-.01em; color:#1D1D1F; }
+  .scard p.soft { font-weight:400; color:#48484D; }
+  .scard .bignum { font:700 25px var(--display); letter-spacing:-.01em; }
+  .scard .term { font:700 34px/1.02 var(--display); letter-spacing:-.035em; color:#1D1D1F; }
+  .scard .formula { font:600 14px/1.35 var(--text); background:#F5F5F7; border:0; border-radius:12px; padding:9px 10px; text-align:center; }
+  .scard .ex { font:400 13px/1.4 var(--text); color:#48484D; background:#F5F5F7; border-radius:12px; padding:9px 10px; }
+  .scard .src { display:flex; gap:6px; align-items:center; font:600 10.5px var(--text); color:#7E8C84; }
+  .scard .conf { font:700 9px var(--display); letter-spacing:.06em; text-transform:uppercase; border-radius:99px; padding:2px 7px; background:#E5F6EC; color:#0A7D47; flex:none; }
   .scard .conf.likely { background:#FFF3D6; color:#9A6400; }
   .scard .bars { display:grid; gap:7px; }
-  .scard .bl { font:800 11.5px Nunito,sans-serif; color:#4A5A52; }
+  .scard .bl { font:600 11.5px var(--display); color:#4A5A52; }
   .scard .bt { display:flex; align-items:center; gap:6px; }
-  .scard .bf { height:13px; border-radius:0 5px 5px 0; background:#B9C6BF; min-width:3px; }
-  .scard .bf.hl { background:var(--gold); }
-  .scard .bv { font:900 12.5px Nunito,sans-serif; }
-  .scard .deeper { align-self:flex-start; font:900 12px Nunito,sans-serif; color:#2D55C2; background:#E9EFFF; border:2px solid #B9CBFF; border-bottom-width:3px; border-radius:99px; padding:6px 11px; cursor:pointer; }
+  .scard .bf { height:12px; border-radius:0 5px 5px 0; background:#C7C7CC; min-width:3px; }
+  .scard .bf.hl { background:var(--g); }
+  .scard .bv { font:700 12.5px var(--display); }
+  .scard .deeper { align-self:flex-start; font:600 12px var(--text); color:#0066CC; background:#EAF3FE; border:0; border-radius:99px; padding:7px 12px; cursor:pointer; }
   .scard .qo { display:grid; gap:7px; }
-  .scard .qo button { text-align:left; padding:10px 12px; border-radius:12px; background:#fff; border:2px solid #E5E7E6; border-bottom-width:3px; font:800 14px Nunito,sans-serif; cursor:pointer; }
-  .scard .qo button.right { border-color:var(--g); background:var(--g-soft); color:var(--g-dark); }
+  .scard .qo button { text-align:left; padding:10px 12px; border-radius:12px; background:#fff; border:1px solid #E5E7E6; border-bottom-width:1px; font:600 14px var(--display); cursor:pointer; }
+  .scard .qo button.right { border-color:var(--ok); background:var(--ok-soft); color:var(--ok-dark); }
   .scard .qo button.wrong { border-color:var(--red); background:var(--red-soft); color:var(--red-dark); }
-  .scard .ok { font:800 13px Nunito,sans-serif; color:var(--g-dark); }
+  .scard .ok { font:600 13px var(--display); color:var(--g-dark); }
   .scard .mini { width:100%; max-width:200px; align-self:center; border-radius:16px; background:#0C1310; }
   .scard .btn { height:44px; font-size:15px; }
-  .swipehint { text-align:center; font:800 12px Nunito,sans-serif; color:#8A978F; padding-top:10px; }
+  .swipehint { text-align:center; font:600 12px var(--display); color:#8A978F; padding-top:10px; }
 
   /* why the news */
-  .decode { margin-top:36px; background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:26px; display:grid; gap:18px; }
-  .decode .lab { font:900 13px Nunito,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
-  .headline { font:900 clamp(24px,3.4vw,34px)/1.2 Nunito,sans-serif; letter-spacing:-.01em; }
+  .decode { margin-top:36px; background:var(--surface); border:1px solid var(--line); border-radius:26px; padding:26px; display:grid; gap:18px; }
+  .decode .lab { font:700 13px var(--display); letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
+  .headline { font:700 clamp(24px,3.4vw,34px)/1.2 var(--display); letter-spacing:-.01em; }
   .headline button { font:inherit; background:none; border:0; padding:0; cursor:pointer; color:inherit; text-decoration:underline; text-decoration-color:var(--gold); text-decoration-thickness:.14em; text-underline-offset:.16em; }
   .headline button[aria-pressed="true"] { color:var(--g-dark); }
   .meaning { display:flex; gap:14px; align-items:flex-start; background:var(--g-soft); border-radius:18px; padding:16px 18px; }
-  .meaning b { font:900 17px Nunito,sans-serif; color:var(--g-dark); display:block; margin-bottom:2px; }
+  .meaning b { font:700 17px var(--display); color:var(--g-dark); display:block; margin-bottom:2px; }
   .meaning p { color:#25302A; }
 
   /* the map */
@@ -356,18 +356,28 @@
   /* word course */
   .two { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
   @media (max-width:900px) { .mapsec, .two { grid-template-columns:1fr; } }
+  /* demo paywall: 10 free slides, like the app */
+  .scard.wall .mid { gap:12px; }
+  .scard.wall h4 { font-size:23px; }
+  .scard .wplan { border:1px solid #D2D2D7; border-radius:14px; padding:9px 11px; font:400 12.5px/1.35 var(--text); color:#48484D; }
+  .scard .wplan b { display:block; font:600 14px var(--text); color:#1D1D1F; }
+  .scard .wplan.best { border:2px solid var(--g); }
+  .scard form.wl { display:grid; gap:7px; }
+  .scard form.wl input { height:42px; border-radius:12px; border:1px solid #D2D2D7; padding:0 12px; font:400 15px var(--text); width:100%; }
+  .scard form.wl .btn { height:42px; width:100%; font-size:15px; }
+  .scard .wok { font:600 14px/1.4 var(--text); color:var(--ok-dark); }
 </style>
 </head>
 <body>
 <div class="glow"></div>
 <div class="wrap">
-  <nav class="top"><a class="brand" href="#"><img src="img/icon.svg" alt=""><b style="font:inherit">Fin<span>speak</span></b></a><a class="nav-cta" href="#join">Join the waitlist</a></nav>
+  <nav class="top"><a class="brand" href="#"><img src="img/icon.svg?v=2" alt=""><b style="font:inherit">Newsible</b></a><a class="nav-cta" href="#join">Join the waitlist</a></nav>
 
   <header class="hero">
     <div>
-      <span class="pill">📰 Stop nodding along to the news</span>
+      <span class="pill">News, explained step by step</span>
       <h1>Finally <span class="hl">understand</span> the news.</h1>
-      <p class="lead">Pick a headline from today’s money and business news. Tap any word you don’t know. Then go deeper, layer by layer, until every idea makes sense. Plain English, real numbers, and a source for every fact.</p>
+      <p class="lead">Pick a headline from today’s news: politics, science, health, tech, money. Tap any word you don’t know. Then go deeper, one step at a time, until every idea makes sense. Real words, real numbers, and a source for every fact.</p>
       <form class="waitlist" data-where="hero">
         <div class="row">
           <input type="email" name="email" placeholder="Your email" required autocomplete="email">
@@ -390,7 +400,7 @@
           <div class="swipehint" id="swipeHint">Tap a headline</div>
         </div>
       </div>
-      <div class="tryme">👆 Pick any headline. Then swipe up to go a layer deeper.</div>
+      <div class="tryme">Pick any headline. Then swipe up to go a step deeper.</div>
     </div>
   </header>
 </div>
@@ -398,16 +408,16 @@
 <section id="why"><div class="wrap">
   <div class="eyebrow">Why the news</div>
   <h2>The news assumes you already know.</h2>
-  <p class="sub">A business reporter has a few hundred words. There’s no room to explain what a market cap is, or why 513 times profit is scary. So most people read the headline and nod along. Finspeak starts every story from zero.</p>
+  <p class="sub">A business reporter has a few hundred words. There’s no room to explain what a market cap is, or why 513 times profit is scary. So most people read the headline and nod along. Newsible starts every story from zero and builds up one step at a time.</p>
   <div class="decode">
     <div class="lab">This week’s news in one line. Tap the underlined words.</div>
     <div class="headline">Anthropic files for an <button type="button" data-m="0" aria-pressed="true">IPO</button> that could value it at <button type="button" data-m="1" aria-pressed="false">$2 trillion</button>, after an <button type="button" data-m="2" aria-pressed="false">$80.7 billion loss</button>.</div>
     <div class="meaning" id="meaning"></div>
   </div>
   <div class="steps">
-    <div class="card"><div class="n">1</div><h3>Pick your headline</h3><p>Choose from today’s money and business news. An IPO, the Fed, oil, a coffee chain. Read what you care about.</p></div>
+    <div class="card"><div class="n">1</div><h3>Pick your headline</h3><p>Choose from today’s news. An election, a new drug, a rocket launch, an IPO. Read what you care about.</p></div>
     <div class="card"><div class="n">2</div><h3>Every idea, from zero</h3><p>Each idea starts with a simple example, like a lemonade stand. Then you see the real numbers, with the math shown.</p></div>
-    <div class="card"><div class="n">3</div><h3>Go layers deeper</h3><p>Swipe up on any idea to open the layer under it. Keep going until it clicks. Then swipe back to the story.</p></div>
+    <div class="card"><div class="n">3</div><h3>Go a step deeper</h3><p>Swipe up on any idea to open the step under it. Keep going until it clicks. Then swipe back to the story.</p></div>
   </div>
 </div></section>
 
@@ -419,7 +429,7 @@
     <div class="mappoints">
       <div><i style="background:#FFB020"></i><span><b>Learn P/E in a story about Anthropic.</b> It turns gold right next to market cap, profit and growth.</span></div>
       <div><i style="background:#1FAE66"></i><span><b>Tap any piece to zoom in.</b> The pieces around it are the ideas it connects to, each one labeled.</span></div>
-      <div><i style="background:#5A86EE"></i><span><b>Finance, business, the economy and your own money.</b> Every new story adds pieces.</span></div>
+      <div><i style="background:#5A86EE"></i><span><b>Politics, the world, science, health, tech and money.</b> Every new story adds pieces.</span></div>
     </div>
   </div>
   <div class="mapimg"><img src="img/idea-map.svg" width="533" height="629" alt="A puzzle of money ideas. Market cap sits in the middle. The ideas it connects to fit around it, like P/E ratio, IPO and revenue vs. profit. Ideas from today’s story are gold."></div>
@@ -453,19 +463,19 @@
   <div class="eyebrow">Questions</div>
   <h2>Good questions.</h2>
   <div class="faq">
-    <details><summary>What is a daily story?</summary><p>One real piece of money or business news, explained in about 30 swipe cards. Every idea in it is taught from zero. You get a simple example first, then the real numbers, a chart or two and a quick check.</p></details>
-    <details><summary>How deep does it go?</summary><p>As deep as you want. Every idea has a layer under it that explains it. Swipe up to open the next layer. Swipe back to return to the story.</p></details>
-    <details><summary>Where do the numbers come from?</summary><p>Company filings, official data like the Federal Reserve and the Labor Department, and news reports. Every fact card shows its source. Green tags mean a filing or official number. Gold tags mean a news report.</p></details>
-    <details><summary>Who is Finspeak for?</summary><p>Anyone who reads money news and feels lost when the jargon starts. Nothing is assumed. If a word stops you, swipe up and it gets explained, all the way down.</p></details>
-    <details><summary>Is this investment advice?</summary><p>No. Finspeak explains what the news and the words mean. When people disagree, you see both sides. It never tells you what to buy or sell.</p></details>
-    <details><summary>How much will it cost?</summary><p>Pricing isn’t set yet. People on the waitlist hear first.</p></details>
+    <details><summary>What is a daily story?</summary><p>One real news story, explained step by step in about 100 swipe cards. Every idea in it is taught from zero. You get a simple example first, then the real numbers, charts and quick checks. You get 10 free slides every day.</p></details>
+    <details><summary>How deep does it go?</summary><p>As deep as you want. Every idea has a step under it that explains it. Swipe up to open the next step. Swipe back to return to the story.</p></details>
+    <details><summary>Where do the numbers come from?</summary><p>Official data, court rulings, scientific papers, company filings and news reports. Every fact card shows its source. Green tags mean a filing or official number. Gold tags mean a news report.</p></details>
+    <details><summary>Who is Newsible for?</summary><p>Anyone who reads the news and feels lost when the jargon starts. Nothing is assumed. If a word stops you, swipe up and it gets explained, all the way down.</p></details>
+    <details><summary>Does it take sides?</summary><p>No. When people disagree, you see each side in its own words, with the same space for both. Newsible never tells you how to vote, or what to buy or sell. You decide.</p></details>
+    <details><summary>How much will it cost?</summary><p>You get 10 free slides every day. A paid plan unlocks every slide. Pricing isn’t set yet. People on the waitlist hear first.</p></details>
     <details><summary>iPhone or Android?</summary><p>Pick your phone when you join. It tells us which one to build first.</p></details>
   </div>
 </div></section>
 
 <section class="final" id="join"><div class="wrap">
   <h2>Stop nodding along. Start understanding the news.</h2>
-  <p class="sub">Join the waitlist. Be first to try the new Finspeak.</p>
+  <p class="sub">Join the waitlist. Be first to try Newsible.</p>
   <form class="waitlist" data-where="footer">
     <div class="row">
       <input type="email" name="email" placeholder="Your email" required autocomplete="email">
@@ -479,7 +489,7 @@
   <div class="thanks"></div>
 </div></section>
 
-<div class="wrap"><footer><span>Finspeak: stop nodding along to the news. Lessons on what money news means. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
+<div class="wrap"><footer><span>Newsible: news, explained step by step. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
 
 <script src="config.js"></script>
 <script>
@@ -516,7 +526,7 @@
       send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where });
       document.querySelectorAll("form.waitlist").forEach(f => f.style.display = "none");
       document.querySelectorAll(".thanks").forEach(t => {
-        t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Finspeak is ready.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
+        t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Newsible is ready.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
         t.style.display = "block";
       });
       document.querySelectorAll(".share").forEach(btn => btn.addEventListener("click", share));
@@ -524,9 +534,9 @@
   });
   function share() {
     const url = location.origin + location.pathname;
-    const text = "Today’s money news, explained from zero. I just joined the Finspeak waitlist.";
+    const text = "The news, explained step by step. I just joined the Newsible waitlist.";
     send("share", { where: "thanks" });
-    if (navigator.share) { navigator.share({ title: "Finspeak", text, url }).catch(() => {}); return; }
+    if (navigator.share) { navigator.share({ title: "Newsible", text, url }).catch(() => {}); return; }
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
       () => document.querySelectorAll(".share").forEach(b => b.textContent = "Link copied ✓"),
       () => prompt("Copy this link:", url));
@@ -546,11 +556,17 @@
   const bar = document.getElementById('storyBar'), cnt = document.getElementById('storyCnt'), hint = document.getElementById('swipeHint'), back = document.getElementById('storyBack');
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const head = s => esc(s.head).replace(/\[([^\]|]+)(?:\|[^\]]+)?\]/g, '<u class="jgw">$1</u>');
-  const BR = { finance: ['Finance', '#1FAE66'], business: ['Business', '#5A86EE'], economy: ['Economy', '#BF7E1F'], you: ['Your money', '#A874E8'] };
+  const BR = { finance: ['Finance', '#2FB872'], business: ['Business', '#5B8DEF'], economy: ['Economy', '#C98A2B'], you: ['Your money', '#C27BE0'], politics: ['Politics', '#7F7BF0'], world: ['World', '#35B3C4'], science: ['Science', '#8BC34A'], health: ['Health', '#F2727F'], tech: ['Tech', '#98A2B3'], culture: ['Sports and culture', '#E86FB8'] };
   const day = d => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const STORIES = window.FS_DEMO;
   let story = null, depth = 0, filter = 'all', touched = false;
   const logged = new Set();
+  // 10 free slides a day, like the app. A slide costs one the first time you open it.
+  const FREE = 10, today = new Date().toLocaleDateString('en-CA');
+  const load = () => { try { const w = JSON.parse(localStorage.getItem('ns-demo') || 'null'); return w && w.day === today ? w : { day: today, seen: [] }; } catch (e) { return { day: today, seen: [] }; } };
+  const wallet = load(), seen = new Set(wallet.seen);
+  const spend = key => { if (seen.has(key)) return true; if (seen.size >= FREE) return false; seen.add(key); try { localStorage.setItem('ns-demo', JSON.stringify({ day: today, seen: [...seen] })); } catch (e) {} return true; };
+  const left = () => Math.max(0, FREE - seen.size);
   const log = where => { if (!logged.has(where)) { logged.add(where); window.fsLog && window.fsLog('lesson', { where }); } };
 
   function renderList() {
@@ -559,9 +575,9 @@
     const chips = ['all', ...Object.keys(BR).filter(b => STORIES.some(s => s.branch === b))];
     deck.innerHTML = `<div class="nlist"><div class="nl-top"><b>Today’s news</b><span>${STORIES.length} stories</span></div>
       <div class="nl-chips">${chips.map(c => `<button type="button" class="nl-chip${c === filter ? ' on' : ''}" data-f="${c}">${c === 'all' ? 'All' : BR[c][0]}</button>`).join('')}</div>
-      ${shown.map((s, i) => `<button class="nl${!touched && i === 0 ? ' nudge' : ''}" type="button" data-s="${STORIES.indexOf(s)}"><span class="nl-tag"><i style="background:${BR[s.branch][1]}"></i>${BR[s.branch][0]} · ${day(s.date)} · ${s.layers.length} layers deep</span><span class="nl-h">${head(s)}</span></button>`).join('')}</div>`;
+      ${shown.map((s, i) => `<button class="nl${!touched && i === 0 ? ' nudge' : ''}" type="button" data-s="${STORIES.indexOf(s)}"><span class="nl-tag"><i style="background:${BR[s.branch][1]}"></i>${BR[s.branch][0]} · ${day(s.date)} · ${s.layers.length} steps deep</span><span class="nl-h">${head(s)}</span></button>`).join('')}</div>`;
     bar.style.width = '0%'; cnt.textContent = 'Today'; back.disabled = true;
-    hint.textContent = 'Pick any headline';
+    hint.textContent = `Pick any headline · ⚡ ${left()} free slides today`;
     deck.querySelectorAll('.nl-chip').forEach(b => b.addEventListener('click', () => { filter = b.dataset.f; renderList(); }));
     deck.querySelectorAll('.nl').forEach(b => b.addEventListener('click', () => { touched = true; story = STORIES[+b.dataset.s]; depth = 0; log(`news:${story.id}:open`); render(); }));
   }
@@ -578,23 +594,43 @@
   function cardHTML(d) {
     const L = story.layers[d], n = story.layers.length, last = d === n - 1;
     const foot = last
-      ? `<div class="endnote">Bottom layer. You went ${n} layers under one headline.</div><div class="endbtns"><button class="deeper" type="button" data-list>Pick another headline</button><a href="#join">Get early access</a></div>`
+      ? `<div class="endnote">Bottom step. You went ${n} steps under one headline.</div><div class="endbtns"><button class="deeper" type="button" data-list>Pick another headline</button><a href="#join">Get early access</a></div>`
       : `<button class="deeper" type="button" data-deeper>↑ Go deeper: ${esc(L.deeper)}</button>`;
     const src = L.src ? `<div class="src"><span class="conf${L.src.conf === 'Confirmed' ? '' : ' likely'}">${esc(L.src.conf)}</span>${esc(L.src.text)}</div>` : '';
-    return `<div class="eb">Level ${d + 1} of ${n} · ${esc(L.title)}</div><div class="mid">${d === 0 ? `<h4>${head(story)}</h4>` : ''}${layerHTML(L)}${foot}</div>${src}`;
+    return `<div class="eb">Step ${d + 1} of ${n} · ${esc(L.title)}</div><div class="mid">${d === 0 ? `<h4>${head(story)}</h4>` : ''}${layerHTML(L)}${foot}</div>${src}`;
   }
   const kindOf = d => d === 0 ? 'cover' : story.layers[d].term ? 'concept' : '';
+  function wallHTML() {
+    return `<div class="eb">Today’s 10 free slides are used up</div><div class="mid"><h4>Want the next step?</h4>
+      <p class="soft">In the app you get 10 free slides every day. Newsible Plus unlocks every slide of every story.</p>
+      <div class="wplan best"><b>Get early access</b>Join the waitlist and we’ll email you the day Newsible is ready.</div>
+      <form class="wl"><input type="email" name="email" placeholder="Your email" required autocomplete="email" aria-label="Your email"><button class="btn" type="submit">Join the waitlist</button></form>
+      <button class="deeper" type="button" data-list>Back to the headlines</button></div>`;
+  }
   function render() {
     if (!story) return renderList();
     const n = story.layers.length, next = story.layers[depth + 1];
+    if (!spend(story.id + ':' + depth)) {
+      deck.innerHTML = `<div class="scard wall" id="topcard">${wallHTML()}</div>`;
+      bar.style.width = '100%'; cnt.textContent = '⚡ 0'; back.disabled = false; hint.textContent = '10 more free slides tomorrow';
+      log('paywall');
+      const el = document.getElementById('topcard');
+      el.querySelector('[data-list]').addEventListener('click', () => { story = null; render(); });
+      el.querySelector('form').addEventListener('submit', e => {
+        e.preventDefault();
+        window.fsLog && window.fsLog('signup', { email: new FormData(e.target).get('email'), phone: '', where: 'demo-paywall' });
+        e.target.outerHTML = '<div class="wok">You’re on the list. We’ll email you the day Newsible is ready.</div>';
+      });
+      return;
+    }
     deck.innerHTML = (next ? `<div class="scard under ${kindOf(depth + 1)}"></div>` : '') +
       `<div class="scard ${kindOf(depth)} lv${Math.min(depth + 1, 5)}" id="topcard">${cardHTML(depth)}</div>`;
     // Long layers get smaller text so nothing spills off the card.
     const el = document.getElementById('topcard');
     if (el.scrollHeight > el.clientHeight + 2) el.classList.add('tight');
     if (el.scrollHeight > el.clientHeight + 2) el.classList.add('tighter');
-    bar.style.width = `${(depth + 1) / n * 100}%`; cnt.textContent = `Lvl ${depth + 1}/${n}`; back.disabled = false;
-    hint.textContent = depth === n - 1 ? 'That’s the bottom layer' : depth === 0 ? '↑ Swipe up to go a layer deeper' : '↑ Deeper · ↓ Back up a layer';
+    bar.style.width = `${(depth + 1) / n * 100}%`; cnt.textContent = `${depth + 1}/${n}`; back.disabled = false;
+    hint.textContent = (depth === n - 1 ? 'That’s the bottom step' : depth === 0 ? '↑ Swipe up to go a step deeper' : '↑ Deeper · ↓ Back up') + ` · ⚡ ${left()} free`;
     if (depth === n - 1) log(`news:${story.id}:bottom`);
     bind();
   }
