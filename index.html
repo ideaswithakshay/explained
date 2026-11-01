@@ -66,7 +66,10 @@
   input[type=email]:focus { border-color:var(--g); }
   .phones { display:flex; gap:8px; font-size:14px; color:var(--sub); align-items:center; flex-wrap:wrap; }
   .phones label { cursor:pointer; padding:6px 13px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
-  .phones label:has(input:checked) { border-color:var(--g); color:var(--ink); }
+  .phones label { position:relative; }
+  .phones input { position:absolute; opacity:0; pointer-events:none; }
+  .phones label:has(input:checked) { border-color:var(--g); color:var(--g-dark); background:var(--g-soft); }
+  .phones label:has(input:focus-visible) { outline:2px solid var(--g); outline-offset:2px; }
   .fine { font-size:13px; color:var(--sub); }
   .thanks { display:none; padding:20px 22px; border-radius:20px; background:var(--surface); border:1px solid var(--g); max-width:500px; }
   .thanks b { font:700 22px var(--display); display:block; margin-bottom:4px; }
