@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Newsplained: News, Explained Step by Step</title>
-<meta name="description" content="Pick a headline from today’s news: politics, science, health, tech, money. Tap the jargon. Go as deep as you want, one step at a time, with real numbers and a source for every fact.">
+<title>Explained: Anything, Explained Step by Step</title>
+<meta name="description" content="Pick the topics you care about: the news, money, science, philosophy, history and more. A 10-question quiz finds your level. Then every idea is built up step by step, at your level.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Newsplained: News, Explained Step by Step">
-<meta property="og:description" content="Pick a headline. Go as deep as you want, one step at a time. Join the waitlist.">
+<meta property="og:title" content="Explained: Anything, Explained Step by Step">
+<meta property="og:description" content="Pick a topic. A quick quiz finds your level. Then every idea builds up step by step. Join the waitlist.">
 <meta property="og:url" content="https://ideaswithakshay.github.io/finspeak-site/">
-<meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=3">
+<meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=4">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=3">
+<meta name="twitter:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png?v=4">
 <link rel="icon" href="img/icon.svg?v=3" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/icon.png?v=3">
 <style>
@@ -366,23 +366,36 @@
   .scard form.wl input { height:42px; border-radius:12px; border:1px solid #D2D2D7; padding:0 12px; font:400 15px var(--text); width:100%; }
   .scard form.wl .btn { height:42px; width:100%; font-size:15px; }
   .scard .wok { font:600 14px/1.4 var(--text); color:var(--ok-dark); }
+  /* topic chips in the signup, and the two-level example */
+  .topics { display:flex; flex-wrap:wrap; gap:8px; font-size:14px; color:var(--sub); align-items:center; }
+  .topics > span { width:100%; }
+  .topics label { position:relative; cursor:pointer; padding:6px 13px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
+  .topics input { position:absolute; opacity:0; pointer-events:none; }
+  .topics label:has(input:checked) { border-color:var(--g); color:var(--g-dark); background:var(--g-soft); }
+  .topics label:has(input:focus-visible) { outline:2px solid var(--g); outline-offset:2px; }
+  .lvls { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:36px; }
+  .lvl { background:var(--surface); border:.5px solid var(--line); box-shadow:var(--shadow); border-radius:24px; padding:24px; }
+  .lvl .lab { font:600 12px var(--text); letter-spacing:.08em; text-transform:uppercase; color:var(--g); margin-bottom:8px; }
+  .lvl p { font-size:18px; line-height:1.45; }
+  @media (max-width:900px) { .lvls { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <div class="glow"></div>
 <div class="wrap">
-  <nav class="top"><a class="brand" href="#"><img src="img/icon.svg?v=3" alt=""><b style="font:inherit">Newsplained</b></a><a class="nav-cta" href="#join">Join the waitlist</a></nav>
+  <nav class="top"><a class="brand" href="#"><img src="img/icon.svg?v=3" alt=""><b style="font:inherit">Explained</b></a><a class="nav-cta" href="#join">Join the waitlist</a></nav>
 
   <header class="hero">
     <div>
-      <span class="pill">News, explained step by step</span>
-      <h1>Finally <span class="hl">understand</span> the news.</h1>
-      <p class="lead">Pick a headline from today’s news: politics, science, health, tech, money. Tap any word you don’t know. Then go deeper, one step at a time, until every idea makes sense. Real words, real numbers, and a source for every fact.</p>
+      <span class="pill">Anything, explained step by step</span>
+      <h1>Finally <span class="hl">understand</span> anything.</h1>
+      <p class="lead">Pick the topics you care about: today’s news, money, science, philosophy, history and more. A 10-question quiz finds your level, from total beginner to expert. Then every idea is built up step by step, at your level, with real numbers and a source for every fact.</p>
       <form class="waitlist" data-where="hero">
         <div class="row">
           <input type="email" name="email" placeholder="Your email" required autocomplete="email">
           <button class="btn" type="submit">Get early access</button>
         </div>
+        <div class="topics" role="group" aria-label="Topics you want to understand"><span>I want to understand:</span><label><input type="checkbox" name="topic" value="news" checked><span>The news</span></label><label><input type="checkbox" name="topic" value="money"><span>Money</span></label><label><input type="checkbox" name="topic" value="science"><span>Science</span></label><label><input type="checkbox" name="topic" value="philosophy"><span>Philosophy</span></label><label><input type="checkbox" name="topic" value="history"><span>History</span></label><label><input type="checkbox" name="topic" value="health"><span>Health</span></label><label><input type="checkbox" name="topic" value="tech"><span>Tech</span></label><label><input type="checkbox" name="topic" value="mind"><span>The mind</span></label><label><input type="checkbox" name="topic" value="society"><span>Society</span></label><label><input type="checkbox" name="topic" value="arts"><span>The arts</span></label></div>
         <div class="phones"><span>My phone:</span>
           <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
           <label><input type="radio" name="phone" value="android"><span>Android</span></label>
@@ -400,24 +413,34 @@
           <div class="swipehint" id="swipeHint">Tap a headline</div>
         </div>
       </div>
-      <div class="tryme">Pick any headline. Then swipe up to go a step deeper.</div>
+      <div class="tryme">Try the news puzzle: pick any headline, then swipe up to go a step deeper.</div>
     </div>
   </header>
 </div>
 
 <section id="why"><div class="wrap">
-  <div class="eyebrow">Why the news</div>
-  <h2>The news assumes you already know.</h2>
-  <p class="sub">A business reporter has a few hundred words. There’s no room to explain what a market cap is, or why 513 times profit is scary. So most people read the headline and nod along. Newsplained starts every story from zero and builds up one step at a time.</p>
+  <div class="eyebrow">Why it feels hard</div>
+  <h2>Everything assumes you already know.</h2>
+  <p class="sub">A news story has a few hundred words. A textbook assumes last year’s class. Nobody stops to explain the jargon, so most people nod along. Explained starts from where you are and builds up one step at a time.</p>
   <div class="decode">
     <div class="lab">This week’s news in one line. Tap the underlined words.</div>
     <div class="headline">Anthropic files for an <button type="button" data-m="0" aria-pressed="true">IPO</button> that could value it at <button type="button" data-m="1" aria-pressed="false">$2 trillion</button>, after an <button type="button" data-m="2" aria-pressed="false">$80.7 billion loss</button>.</div>
     <div class="meaning" id="meaning"></div>
   </div>
   <div class="steps">
-    <div class="card"><div class="n">1</div><h3>Pick your headline</h3><p>Choose from today’s news. An election, a new drug, a rocket launch, an IPO. Read what you care about.</p></div>
-    <div class="card"><div class="n">2</div><h3>Every idea, from zero</h3><p>Each idea starts with a simple example, like a lemonade stand. Then you see the real numbers, with the math shown.</p></div>
+    <div class="card"><div class="n">1</div><h3>Pick your topics</h3><p>The news, money, science, philosophy, history and more. Learn what you care about.</p></div>
+    <div class="card"><div class="n">2</div><h3>Find your level</h3><p>A 10-question quiz places you from 1, total beginner, to 10, expert. Every slide comes in 10 versions, so each one meets you where you are.</p></div>
     <div class="card"><div class="n">3</div><h3>Go a step deeper</h3><p>Swipe up on any idea to open the step under it. Keep going until it clicks. Then swipe back to the story.</p></div>
+  </div>
+</div></section>
+
+<section id="levels"><div class="wrap">
+  <div class="eyebrow">Your level</div>
+  <h2>The same idea, at your level.</h2>
+  <p class="sub">Answer 10 quick questions on each topic you pick. You get a level from 1 to 10, and every slide is written 10 ways. A beginner and a pro learn the same idea, each from where they stand. You move up as you get things right.</p>
+  <div class="lvls">
+    <div class="lvl"><div class="lab">Level 2 · P/E ratio</div><p>A lemonade stand costs $500 and earns $50 a year. At that pace it takes 10 years to earn back the price. That number, price ÷ profit, is the P/E ratio.</p></div>
+    <div class="lvl"><div class="lab">Level 8 · P/E ratio</div><p>A P/E of 28 means an earnings yield of 1 ÷ 28 = 3.6%. If a safe government bond pays more than that, the price only makes sense if profit grows. A high P/E is a bet on growth.</p></div>
   </div>
 </div></section>
 
@@ -429,7 +452,7 @@
     <div class="mappoints">
       <div><i style="background:#FFB020"></i><span><b>Learn P/E in a story about Anthropic.</b> It turns gold right next to market cap, profit and growth.</span></div>
       <div><i style="background:#1FAE66"></i><span><b>Tap any piece to zoom in.</b> The pieces around it are the ideas it connects to, each one labeled.</span></div>
-      <div><i style="background:#5A86EE"></i><span><b>Politics, the world, science, health, tech and money.</b> Every new story adds pieces.</span></div>
+      <div><i style="background:#5A86EE"></i><span><b>News, money, science, philosophy, history and more.</b> Each subject is its own puzzle, and every story adds pieces.</span></div>
     </div>
   </div>
   <div class="mapimg"><img src="img/idea-map.svg" width="533" height="629" alt="A puzzle of money ideas. Market cap sits in the middle. The ideas it connects to fit around it, like P/E ratio, IPO and revenue vs. profit. Ideas from today’s story are gold."></div>
@@ -463,19 +486,20 @@
   <div class="eyebrow">Questions</div>
   <h2>Good questions.</h2>
   <div class="faq">
-    <details><summary>What is a daily story?</summary><p>One real news story, explained step by step in about 100 swipe cards. Every idea in it is taught from zero. You get a simple example first, then the real numbers, charts and quick checks. You get 10 free slides every day.</p></details>
+    <details><summary>What can I learn?</summary><p>The news, money, science, philosophy, history, health, tech, the mind, society and the arts. Each subject is a puzzle of ideas, and new topics arrive without an app update. The news comes as daily stories, each built step by step in about 100 swipe cards. You get 10 free slides every day.</p></details>
+    <details><summary>How does it know my level?</summary><p>When you pick a topic, a 10-question quiz places you from 1 (total beginner) to 10 (expert). Every slide is written in 10 versions, so you start where you are and move up as you get things right. You can change your level anytime.</p></details>
     <details><summary>How deep does it go?</summary><p>As deep as you want. Every idea has a step under it that explains it. Swipe up to open the next step. Swipe back to return to the story.</p></details>
     <details><summary>Where do the numbers come from?</summary><p>Official data, court rulings, scientific papers, company filings and news reports. Every fact card shows its source. Green tags mean a filing or official number. Gold tags mean a news report.</p></details>
-    <details><summary>Who is Newsplained for?</summary><p>Anyone who reads the news and feels lost when the jargon starts. Nothing is assumed. If a word stops you, swipe up and it gets explained, all the way down.</p></details>
-    <details><summary>Does it take sides?</summary><p>No. When people disagree, you see each side in its own words, with the same space for both. Newsplained never tells you how to vote, or what to buy or sell. You decide.</p></details>
+    <details><summary>Who is Explained for?</summary><p>Anyone curious who feels lost when the jargon starts, from total beginners to people who work in the field. Nothing is assumed. If a word stops you, swipe up and it gets explained, all the way down.</p></details>
+    <details><summary>Does it take sides?</summary><p>No. When people disagree, you see each side in its own words, with the same space for both. Explained never tells you how to vote, or what to buy or sell. You decide.</p></details>
     <details><summary>How much will it cost?</summary><p>You get 10 free slides every day. A paid plan unlocks every slide. Pricing isn’t set yet. People on the waitlist hear first.</p></details>
     <details><summary>iPhone or Android?</summary><p>Pick your phone when you join. It tells us which one to build first.</p></details>
   </div>
 </div></section>
 
 <section class="final" id="join"><div class="wrap">
-  <h2>Stop nodding along. Start understanding the news.</h2>
-  <p class="sub">Join the waitlist. Be first to try Newsplained.</p>
+  <h2>Stop nodding along. Start understanding anything.</h2>
+  <p class="sub">Join the waitlist. Be first to try Explained.</p>
   <form class="waitlist" data-where="footer">
     <div class="row">
       <input type="email" name="email" placeholder="Your email" required autocomplete="email">
@@ -489,7 +513,7 @@
   <div class="thanks"></div>
 </div></section>
 
-<div class="wrap"><footer><span>Newsplained: news, explained step by step. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
+<div class="wrap"><footer><span>Explained: anything, explained step by step. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
 
 <script src="config.js"></script>
 <script>
@@ -510,7 +534,7 @@
     data = data || {};
     const F = C.FORM, body = new URLSearchParams();
     body.set(F.event, event); body.set(F.email, data.email || ""); body.set(F.phone, data.phone || "");
-    body.set(F.details, JSON.stringify({ app: C.APP, device, where: data.where, utm, vid, ref: document.referrer }));
+    body.set(F.details, JSON.stringify({ app: C.APP, device, where: data.where, topics: data.topics, utm, vid, ref: document.referrer }));
     fetch(F.url, { method: "POST", mode: "no-cors", body, keepalive: true }).catch(() => {});
   }
   send("visit");
@@ -523,10 +547,10 @@
     form.addEventListener("submit", e => {
       e.preventDefault();
       const fd = new FormData(form);
-      send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where });
+      send("signup", { email: fd.get("email"), phone: fd.get("phone"), where: form.dataset.where, topics: fd.getAll("topic").join(",") });
       document.querySelectorAll("form.waitlist").forEach(f => f.style.display = "none");
       document.querySelectorAll(".thanks").forEach(t => {
-        t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Newsplained is ready.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
+        t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Explained is ready.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
         t.style.display = "block";
       });
       document.querySelectorAll(".share").forEach(btn => btn.addEventListener("click", share));
@@ -534,9 +558,9 @@
   });
   function share() {
     const url = location.origin + location.pathname;
-    const text = "The news, explained step by step. I just joined the Newsplained waitlist.";
+    const text = "Anything, explained step by step, at your level. I just joined the Explained waitlist.";
     send("share", { where: "thanks" });
-    if (navigator.share) { navigator.share({ title: "Newsplained", text, url }).catch(() => {}); return; }
+    if (navigator.share) { navigator.share({ title: "Explained", text, url }).catch(() => {}); return; }
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
       () => document.querySelectorAll(".share").forEach(b => b.textContent = "Link copied ✓"),
       () => prompt("Copy this link:", url));
@@ -602,8 +626,8 @@
   const kindOf = d => d === 0 ? 'cover' : story.layers[d].term ? 'concept' : '';
   function wallHTML() {
     return `<div class="eb">Today’s 10 free slides are used up</div><div class="mid"><h4>Want the next step?</h4>
-      <p class="soft">In the app you get 10 free slides every day. Newsplained Plus unlocks every slide of every story.</p>
-      <div class="wplan best"><b>Get early access</b>Join the waitlist and we’ll email you the day Newsplained is ready.</div>
+      <p class="soft">In the app you get 10 free slides every day. Explained Plus unlocks every slide of every story.</p>
+      <div class="wplan best"><b>Get early access</b>Join the waitlist and we’ll email you the day Explained is ready.</div>
       <form class="wl"><input type="email" name="email" placeholder="Your email" required autocomplete="email" aria-label="Your email"><button class="btn" type="submit">Join the waitlist</button></form>
       <button class="deeper" type="button" data-list>Back to the headlines</button></div>`;
   }
@@ -619,7 +643,7 @@
       el.querySelector('form').addEventListener('submit', e => {
         e.preventDefault();
         window.fsLog && window.fsLog('signup', { email: new FormData(e.target).get('email'), phone: '', where: 'demo-paywall' });
-        e.target.outerHTML = '<div class="wok">You’re on the list. We’ll email you the day Newsplained is ready.</div>';
+        e.target.outerHTML = '<div class="wok">You’re on the list. We’ll email you the day Explained is ready.</div>';
       });
       return;
     }
